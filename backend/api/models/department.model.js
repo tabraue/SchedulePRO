@@ -8,6 +8,6 @@ const departmentSchema = mongoose.Schema({
 })
 
 
-const Department = mongoose.model('Department', departmentSchema)
+const DepartmentModel = mongoose.model('Department', departmentSchema)
 
-module.exports = Department
+module.exports = DepartmentModel
