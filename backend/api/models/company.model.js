@@ -1,11 +1,6 @@
 const mongoose = require("mongoose")
 
 const companySchema = mongoose.Schema({
-    /*_id: String,
-    name: String,
-    vat: String,
-    email: String,
-    password:String,}*/
     name: {
         type: String,
         required: true
@@ -16,7 +11,7 @@ const companySchema = mongoose.Schema({
         unique: true
     },
     country: {
-        type: String
+        type: String,
     },
     sector: {
         type: String
@@ -34,5 +29,6 @@ const companySchema = mongoose.Schema({
 
 
 const CompanyModel = mongoose.model('Company', companySchema)
+
 
 module.exports = CompanyModel
