@@ -10,3 +10,4 @@ BACKEND NPM
     eslint: little helper (config: "standard")
     bcrypt:  library to help hash passwords
     jsonwebtoken: generate token
+    nodemailer: Send emails from Node.js

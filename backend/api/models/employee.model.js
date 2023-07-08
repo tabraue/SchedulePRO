@@ -21,10 +21,19 @@ const employeeSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    department: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Department",
+        required: true,
+    },
+    position: {
+        type: String
+    },
+
 })
 
 
-const Employee = mongoose.model('Employee', employeeSchema)
+const EmployeeModel = mongoose.model('Employee', employeeSchema)
 
-module.exports = Employee
+module.exports = EmployeeModel
