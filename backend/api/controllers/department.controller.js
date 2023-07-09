@@ -18,10 +18,10 @@ const createDepartment = async (req, res) => {
 
 const getAllDepartments = async (req, res) => {
     try {
-        companyId = res.locals.company._id
+        const companyId = res.locals.company._id
         // finds departments from only the company logged
         const departments = await DepartmentModel.find({company: companyId})
-        if(!departments) 
+        if(departments.length === 0) 
             return res.status(400).send('>> There are no departments registered yet')
         return res.status(200).json(departments)
     } catch (error) {
@@ -54,7 +54,7 @@ const deleteOneDepartment = async (req, res) => {
         if(!department) 
             return res.status(400).send('>> There is no such department registered')
         await DepartmentModel.deleteOne(department)
-        return res.status(200).send('>> Department deleted')
+        return res.status(200).json('>> Department deleted')
     } catch (error) {
         console.error(error)
         return res.status(500).send('>> Error')
@@ -72,7 +72,7 @@ const updateOneDepartment = async (req, res) => {
                     {new: true})
         if(!department) 
             return res.status(400).send('>> There is no such department registered')
-        return res.status(200).send('>> Department updated')
+        return res.status(200).json('>> Department updated')
     } catch (error) {
         console.error(error)
         return res.status(500).send('>> Error')
