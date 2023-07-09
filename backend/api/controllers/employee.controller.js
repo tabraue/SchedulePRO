@@ -16,11 +16,12 @@ const createEmployee = async (req, res) => {
 
         const random = await randomPassword()
         const hashPassword = bcrypt.hashSync(random, 10); // password need to be hashed in the db
-        const employee = await EmployeeModel.create( {...req.body, password: hashPassword}).select("-password")
+        const employee = await EmployeeModel.create( {...req.body, password: hashPassword})
 
         if(!employee) 
             return res.status(400).send('>> Something went wrong creating the employee') 
         //await mail(employee, random)
+        
         return res.status(200).json(employee)
     } catch (error) {
         console.error(error)
@@ -56,7 +57,7 @@ const getAllEmployeesByDepartment = async (req, res) => {
         if(!departmentChosen)
             return res.status(400).send(">> There is no such department")
 
-        const employees = await EmployeeModel.findOne({ department: departmentChosen._id }).populate("department").select("-password")
+        const employees = await EmployeeModel.find({ department: departmentChosen._id }).populate("department").select("-password")
 
         if(!employees)
             return res.status(400).send(">> There are no employees in this department yet")

@@ -11,3 +11,4 @@ BACKEND NPM
     bcrypt:  library to help hash passwords
     jsonwebtoken: generate token
     nodemailer: Send emails from Node.js
+    luxon: library for working with dates and times in JavaScript
