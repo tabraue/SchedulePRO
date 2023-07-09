@@ -10,28 +10,28 @@
 
 .day{
     padding: 10px;
-    background-color: #d3d3da;
-    color: #357b8d;
+    background-color: var(--gray);
+    color: var(--blue-calypso);
     font-size: 16px;
     text-align: center;
     font-weight: bold;
 }
 
 .day:nth-child(1) {
-    border-top-left-radius: 20px;
-  }
-  
+    border-top-left-radius: 3px;
+}
+
 .day:nth-child(7) {
-    border-top-right-radius: 10px;
+    border-top-right-radius: 3px;
 }
 
 
-.images{
+/* .images{
     width: 40px;
-}
+} */
 
 .month-year{
     display: flex;
-    color: #357b8d;
+    color: var(--blue-calypso);
     font-size: 20px;
 }

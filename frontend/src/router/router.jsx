@@ -7,7 +7,7 @@ import Calendar from '../components/Calendar/Calendar'
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Calendar/>,
+        element: <SignUpmui/>,
         /*
         errorElement:,
         children:[

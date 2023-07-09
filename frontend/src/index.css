@@ -14,4 +14,11 @@
   --green-legend: #7FA76C; /* day off */
   --purple-legend: #A76CA1; /* holiday */
   --red-legend: #AC5252; /* sick */
+  --gray: #D9D9D9;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
