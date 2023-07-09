@@ -1,0 +1,37 @@
+.dayContainer{
+    grid-column: 2;
+    grid-row: 1;
+    position: inherit;
+    display: grid;
+    grid-template-rows: repeat(2, 2fr);
+    grid-template-columns: repeat(7, 2fr);
+    margin-top: 20px;
+}
+
+.day{
+    padding: 10px;
+    background-color: #d3d3da;
+    color: #357b8d;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.day:nth-child(1) {
+    border-top-left-radius: 20px;
+  }
+  
+.day:nth-child(7) {
+    border-top-right-radius: 10px;
+}
+
+
+.images{
+    width: 40px;
+}
+
+.month-year{
+    display: flex;
+    color: #357b8d;
+    font-size: 20px;
+}
