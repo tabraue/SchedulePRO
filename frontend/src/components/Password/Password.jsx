@@ -1,7 +1,15 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 
-function Password({ text }) {
+function Password({ text, onChange, showHelper }) {
+
+  //showHelper if true shows a helper text to user
+  
+
+  const handleChange = (e) => {
+    if(onChange) onChange(e.target.value)
+  }
+
   return (
     <div>
       <label
@@ -24,8 +32,10 @@ function Password({ text }) {
           id="password"
           className="bg-white-sand border-blue-calypso text-blue-calypso text-sm rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-full pl-10 p-2.5 "
           placeholder="········"
+          onChange={handleChange}
         />
       </div>
+      {showHelper && <p id="helper-text-explanation" className="text-sm text-blue-calypso ">Password must contain at least 8 characters with 1 number and 1 special character . - _</p>}
     </div>
   );
 }

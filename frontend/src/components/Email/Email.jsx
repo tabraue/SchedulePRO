@@ -1,7 +1,10 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 
-function Email({ text, id }) {
+function Email({ text, id, onChange }) {
+  const handleChange = (e) => {
+    if(onChange) onChange(e.target.value)
+  }
 
   return (
     <div>
@@ -25,6 +28,7 @@ function Email({ text, id }) {
           id={id}
           className="bg-white-sand border-blue-calypso text-blue-calypso text-sm rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-full pl-10 p-2.5"
           placeholder="email@schedule-pro.com"
+          onChange={handleChange}
         />
       </div>
     </div>
