@@ -49,8 +49,8 @@ function SignUp() {
   };
 
   return (
-    <div className="flex items-center h-screen w-screen justify-center">
-      <div className="grid auto-rows-fr justify-items-stretch gap-y-3 place-content-center content-center items-center">
+    <div className="flex items-center h-screen w-screen justify-center ">
+      <div className="grid auto-rows-r justify-items-stretch gap-y-3 place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-sm">
         <h1 className="text-3xl font-extrabold text-blue-calypso text-center">
           {title}
         </h1>
@@ -128,6 +128,10 @@ function SignUp() {
               I declare to be owner or responsible of this company.
             </label>
           </div>
+        </div>
+
+        <div className=" text-blue-calypso hover:text-yellow-sandy ">
+          <Link to='/'>I already have an account.</Link>
         </div>
 
         <div className="flex justify-end">
