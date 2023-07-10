@@ -1,24 +1,5 @@
-:root{
-  --blue-calypso: #357b8d; /* MAIN bg & main buttons & text*/
-  --blue--glacier: #70b8c2; /* dialogs or modals bg*/
-  --white--sand: #f5f5f5; /* MAIN bg & txt */
-  --green--vista: #8bd0b0; /* action butons bg (icons on it)*/
-  --green--paradiso: #2d7b6d; /* icon butons */
-  --green-bay: #5ea68f; /* confirm or yes butons */
-  --red-chestnut: #b8424e /* delete or cancel */
-  --yellow-sandy: #f2a154; /* signup */
-  --black: #000000; /* logout */
-  --yellow-legend: #F9C97B; /* morning */
-  --orange-legend: #D68E61; /* evening */
-  --blue-legend: #6c86a7; /* night */
-  --green-legend: #7FA76C; /* day off */
-  --purple-legend: #A76CA1; /* holiday */
-  --red-legend: #AC5252; /* sick */
-  --gray: #D9D9D9;
-}
+/* styles.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}

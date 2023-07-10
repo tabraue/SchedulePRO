@@ -1,17 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom'
-
-import SignUp from '../pages/SignUp/SignUp'
-import SignUpmui from '../pages/SignUp/SignUpmui'
+import Error from '../components/Error/Error'
 import Calendar from '../components/Calendar/Calendar'
+import SignUp from '../pages/SignUp/SignUp'
+import Terms from '../pages/Terms/Terms'
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <SignUpmui/>,
-        /*
-        errorElement:,
+        element: <SignUp/>,
+        errorElement: <Error/>,
         children:[
-            {path: '', element: }
-        ]*/
+            {path: '/terms', element: <Terms/>}
+
+        ]
     }
 ])

@@ -1,88 +1,145 @@
-import React from "react";
+import React, { useState } from "react";
+import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
+import { companySignUp } from "../../services/auth.service";
+import Email from "../../components/Email/Email";
+import Password from "../../components/Password/Password";
+import { Link } from "react-router-dom";
 
 function SignUp() {
+  const [name, setName] = useState("");
+  const [vat, setVat] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailCheck, setEmailCheck] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleName = (name) => {
+    setName(name);
+  };
+
+  const handleVat = (vat) => {
+    setVat(vat);
+  };
+
+  const handleEmail = (email) => {
+    setEmail(email);
+  };
+
+  const handleEmailCheck = (emailCheck) => {
+    setEmailCheck(emailCheck);
+  };
+
+  const handlePass = (pass) => {
+    setPassword(pass);
+  };
+  const signup = "Sign Up";
+  const title = "Sign Up"
+
+  const handleSignUp = async () => {
+    const signUpSuccess = await companySignUp(
+      name.target.value,
+      vat.target.value,
+      email.target.value,
+      password.target.value
+    );
+    if (signUpSuccess) {
+      console.log("Sign up successful");
+    } else {
+      console.log("Sign up failed");
+    }
+  };
+
   return (
-    <>
-      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form className="space-y-4" action="#">
-          <h5 className="text-xl font-medium text-gray-900 dark:text-white ">
-            Sign Up
-          </h5>
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              required
-            />
-          </div>
-          <div className="flex items-start">
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                  required
-                />
-              </div>
-              <label
-                htmlFor="remember"
-                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Remember me
-              </label>
-            </div>
-            <a
-              href="#"
-              className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-            >
-              Lost Password?
-            </a>
-          </div>
-          <button
-            type="submit"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    <div className="flex items-center h-screen w-screen justify-center">
+      <div className="grid auto-rows-fr justify-items-stretch gap-y-3 place-content-center content-center items-center">
+        <h1 className="text-3xl font-extrabold text-blue-calypso text-center">
+          {title}
+        </h1>
+
+        <div>
+          <label
+            htmlFor="company-name"
+            className="block mb-2 text-sm font-medium text-blue-calypso"
           >
-            Login to your account
-          </button>
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?{" "}
-            <a
-              href="#"
-              className="text-blue-700 hover:underline dark:text-blue-500"
-            >
-              Create account
-            </a>
+            Company Name
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none"></div>
+            <input
+              type="text"
+              id="company-name"
+              className="bg-white-sand border-blue-calypso text-blue-calypso text-sm rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-full pl-10 p-2.5 "
+              placeholder="Company LTD"
+            />
           </div>
-        </form>
+        </div>
+
+        <div>
+          <label
+            htmlFor="vat"
+            className="block mb-2 text-sm font-medium text-blue-calypso"
+          >
+            VAT
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none"></div>
+            <input
+              type="text"
+              id="vat"
+              className="bg-white-sand border-blue-calypso text-blue-calypso text-sm rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-full pl-10 p-2.5 "
+              placeholder="ESB1234567"
+            />
+          </div>
+        </div>
+
+        <Email text="Email" id="email-address" />
+        <Email text="Confirm your email" id="email-conf-address" />
+        <Password text="Password" />
+
+        <div className="grid-cols-1 items-center space-y-3">
+          <div>
+            <input
+              id="link-checkbox"
+              type="checkbox"
+              value=""
+              className="w-4 h-4 text-blue-calypso bg-white-sand border-gray-l rounded focus:ring-blue-glacier "
+            />
+            <label
+              htmlFor="link-checkbox"
+              className="ml-2 text-sm font-medium text-blue-calypso"
+            >
+              I agree with the{" "}
+              <Link className="text-yellow-sandy" to={"/terms"}>
+                terms and conditions
+              </Link>
+              .
+            </label>
+          </div>
+          <div>
+            <input
+              id="link-checkbox"
+              type="checkbox"
+              value=""
+              className="w-4 h-4 text-blue-calypso bg-white-sand border-gray-l rounded focus:ring-blue-glacier"
+            />
+            <label
+              htmlFor="link-checkbox"
+              className="ml-2 text-sm font-medium text-blue-calypso"
+            >
+              I declare to be owner or responsible of this company.
+            </label>
+          </div>
+        </div>
+
+        <div className="flex justify-end">
+          <ButtonCustom
+            onClick={handleSignUp}
+            text={signup}
+            bcolor={"blue-calypso"}
+            bhover={"blue-glacier"}
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 
