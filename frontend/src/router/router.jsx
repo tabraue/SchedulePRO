@@ -5,6 +5,9 @@ import LogIn from "../pages/LogIn/LogIn";
 import Terms from "../pages/Terms/Terms";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home";
+import Details from "../pages/Details/Details";
+import Departments from "../pages/Departments/Departments";
+import Employees from "../pages/Employees/Employees";
 
 
 
@@ -13,7 +16,7 @@ const checkLogin = () => {
 }
 
 const check = () => {
-  return localStorage.getItem('token') ? redirect('/login') : null // WAY TO PROTECT TYPING ADDRESS
+  return !localStorage.getItem('token') ? redirect('/login') : null // WAY TO PROTECT TYPING ADDRESS
 }
 
 export const router = createBrowserRouter([
@@ -24,7 +27,7 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/signup", element: <SignUp /> },
-      { path: "/login", element: <LogIn /> }, //, loader: checkLogin
+      { path: "/login", element: <LogIn />, loader: checkLogin}, //, loader: checkLogin
       { path: "/terms", element: <Terms /> },
     ],
   },
@@ -34,7 +37,11 @@ export const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <Error />,
     children: [
-      { path: "/home/dashboard", element: <Home />}, //, loader: check 
+      { path: "/home/dashboard", element: <Home />, loader: check }, //, loader: check 
+      { path: "/home/details", element: <Details />, loader: check }, //, loader: check 
+      { path: "/home/departments", element: <Departments />, loader: check }, //, loader: check 
+      { path: "/home/employees", element: <Employees />, loader: check }, //, loader: check 
+
     ],
   },
 ]);

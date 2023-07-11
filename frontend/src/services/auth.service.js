@@ -25,6 +25,7 @@ export const companyLogIn = async (email, password) => {
       password}
     )
     localStorage.setItem('token', token)
+    localStorage.setItem('name', token.name)
     return true
   } catch (error) {
     console.log(error)

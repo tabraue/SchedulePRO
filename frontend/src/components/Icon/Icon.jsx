@@ -1,16 +1,31 @@
 import React from "react";
 
-function Icon({ color, d}) {
+function Icon({ color, d }) {
   //d = is the icon itself
   //color = in case color changes
 
   const colorGenerator = () => {
-    let style = 'cursor-pointer z-50'
-    if(color === 'blue') style += ' w-4 h-4 text-blue-calypso'
-    if(color === 'white') style += ' w-12 h-12 text-white-sand'
-    if(color === 'black') style+= ' w-9 h-9 text-black'
-    return style
-  }
+    let style = "cursor-pointer z-50";
+    switch (color) {
+      case "blue":
+        style += " w-4 h-4 text-blue-calypso";
+        break;
+      case "white":
+        style += " w-12 h-12 text-white-sand";
+        break;
+      case "black":
+        style += " w-9 h-9 text-black";
+        break;
+        case "green":
+          style += " w-12 h-12 text-green-paradiso ml-2";
+          break;
+      default:
+        style += " w-4 h-4 text-blue-calypso";
+        break;
+    }
+
+    return style;
+  };
 
   return (
     <svg
