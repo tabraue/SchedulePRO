@@ -37,7 +37,6 @@ export const showAllDepartments = async () => {
         return data
     } catch (error) {
         console.error(error);
-        return false;
     }
 }
 
