@@ -23,7 +23,7 @@ function SignUp() {
     setName(name);
   };
 
-  const handleVat = (vat) => {
+  const handleVat = (vat) => { 
     setVat(vat);
   };
 
@@ -69,20 +69,20 @@ function SignUp() {
       if (signCompany) {
         setShowAlertSuccess(!showAlertSuccess);
         const delay = setTimeout(() => {
-          //navigate('/login')
-        }, 2000);
-        return () => clearTimeout(delay);
+          navigate('/login')
+        }, 1000);
+        return () => clearTimeout(setShowAlertSuccess(!showAlertSuccess), delay);
       } else {
         setShowAlertDenied(true);
         const delay = setTimeout(() => {
-          setShowAlertDenied(!showAlertDenied);
+          setShowAlertDenied(false);
         }, 2000);
         return () => clearTimeout(delay);
       }
     } else {
       setShowAlertDenied(true);
       const delay = setTimeout(() => {
-        setShowAlertDenied(!showAlertDenied);
+        setShowAlertDenied(false);
       }, 2000);
       return () => clearTimeout(delay);
     }
@@ -143,7 +143,7 @@ function SignUp() {
               value="term"
               className="w-4 h-4 text-blue-calypso bg-white-sand border-gray-l rounded focus:ring-blue-glacier "
               required
-              checked={isChecked1}
+              checked={isChecked1} 
               onChange={handleChecked1}
             />
             <label
@@ -154,7 +154,7 @@ function SignUp() {
               <Link className="text-yellow-sandy" to={"/terms"}>
                 terms and conditions
               </Link>
-              .
+              .*
             </label>
           </div>
           <div>
@@ -171,7 +171,7 @@ function SignUp() {
               htmlFor="link-checkbox"
               className="ml-2 text-sm font-medium text-blue-calypso"
             >
-              I declare to be owner or responsible of this company.
+              I declare to be owner or responsible of this company.*
             </label>
           </div>
         </div>
@@ -180,17 +180,16 @@ function SignUp() {
           <Link to="/login">I already have an account.</Link>
         </div>
         {showAlertSuccess && (
-          <Alert color="green-bay" text="Welcome to SchedulePRO" />
+          <Alert type='green' svg='green' text="Success!" />
         )}
         {showAlertDenied && (
-          <Alert color="red-chestnut" text="Please, check your details." />
+          <Alert type='red' svg='red' text="Please, check your details." />
         )}
         <div className="flex justify-end">
           <ButtonCustom
             onClick={handleSignUp}
             text={signup}
-            bcolor={"blue-calypso"}
-            bhover={"blue-glacier"}
+            type="blue"
           />
         </div>
       </div>

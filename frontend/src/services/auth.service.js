@@ -14,9 +14,20 @@ export const companySignUp = async (name, vat, email, password) => {
       console.error(error);
       return false;
     }
-  };
+};
 
 
-// rutas backend /auth
-//router.post('/signup', signUp)
-//router.post('/login', logIn)
+// at this moment ONLY COMPANIES CAN LOG IN
+export const companyLogIn = async (email, password) => {
+  try {
+    const {data: token} = await api.post('/auth/login', 
+      {email, 
+      password}
+    )
+    localStorage.setItem('token', token)
+    return true
+  } catch (error) {
+    console.log(error)
+    return false;
+  }
+}

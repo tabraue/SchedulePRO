@@ -1,17 +1,34 @@
 import React from "react";
 
-function Alert({ color, text }) {
+function Alert({ text, type, svg }) {
   //borderColor: if wrong red-chestnut
   //             if correct green-bay
+
+  const styleGenerator = () =>{
+    let style = 'flex items-center p-4 mb-4 text-sm text-black border-solid border-2 rounded-lg bg-white-sand'
+    if (type === 'red') style += ' border-red-chestnut'
+    if (type === 'green') style += ' border-green-bay'
+
+    return style
+  }
+
+  const styleSvg = () =>{
+    let style = 'flex-shrink-0 inline w-4 h-4 mr-3 '
+    if (type === 'red') style += ' fill-red-chestnut'
+    if (type === 'green') style += ' fill-green-bay'
+
+    return style
+  }
+
 
   return (
     <>
       <div
-        className={`flex items-center p-4 mb-4 text-sm text-black border-solid border-2 border-${color} rounded-lg bg-white-sand`}
+        className={styleGenerator()}
         role="alert"
       >
         <svg
-          className={`flex-shrink-0 inline w-4 h-4 mr-3 fill-${color}`}
+          className={styleSvg()}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -20,7 +37,7 @@ function Alert({ color, text }) {
         </svg>
         <span className="sr-only">Info</span>
         <div>
-          <span className={`font-medium text-${color}`}>{text}</span>
+          <span className='font-medium text-black'>{text}</span>
         </div>
       </div>
     </>

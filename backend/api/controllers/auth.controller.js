@@ -28,10 +28,12 @@ const logIn = async (req, res) => {
     const { email, password } = req.body;
     const company = await CompanyModel.findOne({ email });
 
-    if (!company) return res.status(400).json(">> Email or password incorrect");
+    if (!company) 
+      return res.status(400).json(">> Email or password incorrect");
 
     const match = await bcrypt.compareSync(password, company.password);
-    if (!match) res.status(400).json(">> Email or password incorrect");
+    if (!match)  
+      return res.status(400).json(">> Email or password incorrect");
 
     const token = jwt.sign(
       { email: company.email },

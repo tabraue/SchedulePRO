@@ -14,8 +14,7 @@ function HeaderWelcome() {
           <ButtonCustom
             navigate={"/signup"}
             text={startBtn}
-            bcolor="yellow-sandy"
-            bhover="yellow-sandy"
+            type='yellow'
           />
         </div>
       </div>
