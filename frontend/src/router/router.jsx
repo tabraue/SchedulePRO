@@ -20,7 +20,7 @@ const check = () => {
 }
 
 export const router = createBrowserRouter([
-  // ALL VIEWS -> PENDING LOGING
+  // ALL VIEWS -> BEFORE LOGING
   {
     path: "/",
     element: <Layout />,

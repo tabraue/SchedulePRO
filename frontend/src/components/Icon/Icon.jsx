@@ -23,7 +23,6 @@ function Icon({ color, d }) {
         style += " w-4 h-4 text-blue-calypso";
         break;
     }
-
     return style;
   };
 
