@@ -37,7 +37,7 @@ function Departments() {
         employee={false}
       />
       <div className="grid grid-flow-row gap-10 ">
-        <div className="grid grid-flow-col gap-10 place-items-center ">
+        <div className="grid grid-cols-4 gap-10 place-items-center ">
           {copyDepartment.length>0 ?
             copyDepartment.map((el) => (
               <CardDepartment key={el._id} info={el} />

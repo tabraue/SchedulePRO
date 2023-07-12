@@ -21,7 +21,8 @@ function CardDepartment({ info }) {
   };
 
   return (
-    <div className="max-w-sm bg-white-sand border border-green-paradiso rounded-lg shadow">
+    <div className="max-w-sm w-[400px] h-[220px] bg-white-sand border border-green-paradiso rounded-lg shadow">
+
       {/*       <a href="#">
         <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="asdf" />
       </a> */}
@@ -34,7 +35,7 @@ function CardDepartment({ info }) {
         <p className="mb-3 font-normal text-black text-center">
           {info.description}
         </p>
-        <div className="flex flex-row space-x-6">
+        <div className="flex flex-row space-x-5">
           <h3 className="text-md font-bold tracking-tight text-green-paradiso justify-center self-center p-2">
             Manager:
           </h3>

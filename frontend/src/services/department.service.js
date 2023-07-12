@@ -2,11 +2,15 @@ import { api } from "./api.js";
 
 export const createDepartment = async (name, description) => {
     try {
-        await api.post("/department/", {
+        const res = await api.post("/department/", {
           name: name,
           description: description
-        });
-        return true;
+        },{
+            headers: {
+                token: localStorage.getItem('token')
+            }});
+
+        return res;
       } catch (error) {
         console.error(error);
         return false;
