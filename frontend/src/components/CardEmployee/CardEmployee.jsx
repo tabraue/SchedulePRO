@@ -2,19 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { showEmployeesByDepartment } from "../../services/employee.service";
 
-function CardDepartment({ info }) {
+function CardEmployee({ info }) {
   const navigate = useNavigate();
-  const [employees, setEmployees] = useState([]);
-  
-
-  const showEmployees = async (departmentId) => {
-    const data = await showEmployeesByDepartment(departmentId);
-    setEmployees(data);
-  };
-
-  useEffect(() => {
-    showEmployees(info._id);
-  }, []);
 
   const handleCalendar = () => {
     return navigate("/home/");
@@ -26,36 +15,22 @@ function CardDepartment({ info }) {
         <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="asdf" />
       </a> */}
       <div className="p-5">
-        <Link to={`home/departments/${info._id}`}>
+        <Link to={`/home/employees/${info._id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-paradiso text-center p-3">
-            {info.name}
+            {`${info.name} ${info.last_name}`}
           </h5>
         </Link>
+        <h5 className="mb-3 font-semibold text-green-paradiso text-center">
+          <Link to={`/home/department/${info.department._id}`}>{`${info.department.name}`}</Link>
+        </h5>
         <p className="mb-3 font-normal text-black text-center">
-          {info.description}
+          {`Position: ${info.position}`}
         </p>
         <div className="flex flex-row space-x-6">
-          <h3 className="text-md font-bold tracking-tight text-green-paradiso justify-center self-center p-2">
-            Manager:
-          </h3>
-          {employees.map(
-            (el) =>
-              el.is_manager && (
-                <p className="ml-6 justify-center self-center" key={el._id}>
-                  <Link to={`home/employees/${el._id}`}>{el.name}</Link>
-                </p>
-              )
-          )}
-          {/* {details &&
-                  <div className="flex flex-row">
-                    <h3 className="text-md font-bold tracking-tight text-green-paradiso justify-center self-center">
-                      Employees:
-                    </h3>
-                    {employees.map((el) =>
-                          <p className="ml-6 justify-center self-center" key={el._id}> 
-                              <Link to={`home/employees/${el._id}`}>{el.name}</Link>
-                          </p>))}} */}
-
+     {info.is_manager && 
+                <h3 className="text-md tracking-tight font-semibold text-yellow-sandy justify-center self-center p-2">
+            Manager
+          </h3>}  
           <button
             type="button"
             onClick={handleCalendar}
@@ -77,4 +52,4 @@ function CardDepartment({ info }) {
   );
 }
 
-export default CardDepartment;
+export default CardEmployee;

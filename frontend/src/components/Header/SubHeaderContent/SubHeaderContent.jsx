@@ -1,12 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import EmployeeIcon from "../../Icon/EmployeeIcon";
+import DepartmentIcon from "../../Icon/DepartmentIcon";
 
-function SubHeaderContent({placeholder, d}) {
+function SubHeaderContent({placeholder, employee, onChange}) {
   const navigate = useNavigate();
 
   const handleCalendar = () => {
     return navigate("/home/");
   };
+
+  const handleSearch = (e) => {
+    if (onChange) onChange(e);
+  }
 
   return (
     <div className="flex flex-row p-10 my-50 place-items-center w-full">
@@ -35,15 +41,17 @@ function SubHeaderContent({placeholder, d}) {
             type="search"
             id="default-search"
             className="rounded-md inline-flex items-center px-4 py-2 text-lg font-medium text-green-paradiso bg-white-sand border-t border-b border-gray-200 hover:bg-gray-200 hover:text-green-paradiso focus:z-10 focus:ring-2 focus:ring-green-paradiso focus:text-green-paradiso"
+            onChange={handleSearch}
             placeholder={placeholder}
             required
           />
-          <button
+{/*           <button
             type="submit"
+            onClick={handleSearch}
             className="inline-flex items-center px-4 py-2 text-lg font-medium text-green-paradiso bg-white-sand border border-gray-200 rounded-r-md hover:bg-gray-200 hover:text-green-paradiso focus:z-10 focus:ring-2 focus:ring-green-paradiso focus:text-green-paradiso"
           >
             Search
-          </button>
+          </button> */}
         </div>
         <button
           type="button"
@@ -51,21 +59,7 @@ function SubHeaderContent({placeholder, d}) {
 
         >
           Add
-          <svg
-            className="w-10 h-10 mr-12 ml-12"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 25 25"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d={d}
-            />
-          </svg>
+          {employee ? <EmployeeIcon/> : <DepartmentIcon/>}
         </button>
       </div>
     </div>
@@ -73,3 +67,5 @@ function SubHeaderContent({placeholder, d}) {
 }
 
 export default SubHeaderContent;
+
+

@@ -17,13 +17,13 @@ function SubHeader({ name }) {
   };
 
   return (
-    <div className="flex flex-row p-10 my-50 place-items-center w-full">
-      <div className="flex justify-between">
+    <div className="flex flex-row p-10 place-items-center justify-between w-screen">
+      <div className="">
         <h1 className="text-3xl font-extrabold text-blue-calypso">
           {name}
         </h1>
       </div>
-      <div className="flex rounded-md shadow-sm self-center justify-between" role="group">
+      <div className="flex rounded-md shadow-sm self-center" role="group">
         <button
           type="button"
           onClick={handleCalendar}
