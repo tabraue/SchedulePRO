@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Calendar.css";
+import ArrowRight from "../Icon/ArrowRight";
+import ArrowLeft from "../Icon/ArrowLeft";
 
 function Calendar() {
   const [startDate, setStartDate] = useState(new Date());
@@ -95,13 +97,13 @@ function Calendar() {
     <>
       <div className="month-year">
         <button onClick={previousWeek}>
-          <p>----</p>
+          <p className="self-center"><ArrowLeft/></p>
         </button>
         <h2>
           {startMonth} {startYear}
         </h2>
         <button onClick={nextWeek}>
-          <p>----</p>
+          <p className="self-center p-2"><ArrowRight/></p>
         </button>
       </div>
 

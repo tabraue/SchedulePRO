@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { companyDetails } from "../../services/company.service";
-import SubHeader from "../../components/Header/SubHeader/SubHeader";
-import { showAllDepartments } from "../../services/department.service";
-import CardDepartment from "../../components/CardDepartment/CardDepartment";
+import SubHeader from "../../components/Header/SubHeaderMain/SubHeader";
+import Calendar from "../../components/Calendar/Calendar";
+
+
 
 function Home() {
   const [details, setDetails] = useState({});
@@ -20,7 +21,7 @@ function Home() {
       <div className="">
         <SubHeader name={details.name} />
       </div>
-
+      <Calendar/>
     </div>
   );
 }
