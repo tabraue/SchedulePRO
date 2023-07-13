@@ -47,16 +47,6 @@ function CardDepartment({ info }) {
                 </p>
               )
           )}
-          {/* {details &&
-                  <div className="flex flex-row">
-                    <h3 className="text-md font-bold tracking-tight text-green-paradiso justify-center self-center">
-                      Employees:
-                    </h3>
-                    {employees.map((el) =>
-                          <p className="ml-6 justify-center self-center" key={el._id}> 
-                              <Link to={`home/employees/${el._id}`}>{el.name}</Link>
-                          </p>))}} */}
-
           <button
             type="button"
             onClick={handleCalendar}

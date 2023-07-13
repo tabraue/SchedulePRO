@@ -3,7 +3,7 @@ const DepartmentModel = require('../models/department.model')
 
 const createDepartment = async (req, res) => {
     try {
-        // adds itself (by taking the info in res.locals) to body the reference to the company
+        // adds itself (by taking the info in res.locals) to body the reference to the company       
         req.body.company = res.locals.company._id  
         const department = await DepartmentModel.create(req.body)
         if(department) 
