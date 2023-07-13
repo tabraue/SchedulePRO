@@ -32,7 +32,6 @@ function CreateDepartment({onClick}) {
 
   const handleCreate = async () => {
     if (name) {
-      
       const res = await createDepartment(
         name.target.value,
         description.target.value
@@ -56,8 +55,8 @@ function CreateDepartment({onClick}) {
   };
 
   return (
-    <div className="grid items-center justify-center relative">
-      <div className=" grid auto-rows justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg">
+    <div className="grid items-center justify-center">
+      <div className=" grid justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg">
         <button className="justify-self-end"
         onClick={handleClose}
         >
@@ -86,7 +85,7 @@ function CreateDepartment({onClick}) {
           </div>
         </div>
 
-        <div  className="ml-10 mr-10 mb-10">
+        <div  className="ml-10 mr-10">
           <label
             htmlFor="description"
             className="block mb-2 text-sm font-medium text-black"

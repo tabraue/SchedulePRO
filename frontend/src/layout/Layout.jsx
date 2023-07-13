@@ -21,11 +21,11 @@ function Layout() {
   }, [header]);
 
   return (
-    <div className="h-screen w-screen">
+    <>
       {header}
       <Outlet />
       <Footer />
-    </div>
+    </>
   );
 }
 
