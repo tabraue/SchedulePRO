@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { showEmployeesByDepartment } from "../../services/employee.service";
-import CloseIcon from '../Icon/CloseIcon'
-
+import CloseIcon from "../Icon/CloseIcon";
 
 function CardDepartment({ info, onClick }) {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
-  
 
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -22,18 +20,21 @@ function CardDepartment({ info, onClick }) {
     return navigate("/home/");
   };
 
-    const handleClose = () => {
-    if(onClick) onClick()
-  }
+  const handleClose = () => {
+    if (onClick) onClick();
+  };
+
+
+
+
+
 
   return (
+    <>
     <div className="max-w-sm w-[400px] h-[220px] bg-white-sand border border-green-paradiso rounded-lg shadow">
-
-              <button className="justify-self-end"
-        onClick={handleClose}
-        >
-        <CloseIcon/>
-        </button>
+      <button className="justify-self-end" onClick={handleClose}>
+        <CloseIcon />
+      </button>
       <div className="p-5">
         <Link to={`home/departments/${info._id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-paradiso text-center p-3">
@@ -73,6 +74,7 @@ function CardDepartment({ info, onClick }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
