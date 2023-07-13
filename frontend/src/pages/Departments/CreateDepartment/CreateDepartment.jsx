@@ -5,7 +5,7 @@ import { createDepartment } from "../../../services/department.service";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from '../../../components/Icon/CloseIcon'
 
-function CreateDepartment() {
+function CreateDepartment({onClick}) {
   const title = "Create department";
   const confirm = "Confirm";
   const [name, setName] = useState("");
@@ -26,13 +26,13 @@ function CreateDepartment() {
     }
   };
 
-
   const handleClose = () => {
-
+    if(onClick) onClick()
   }
 
   const handleCreate = async () => {
     if (name) {
+      
       const res = await createDepartment(
         name.target.value,
         description.target.value
@@ -55,21 +55,19 @@ function CreateDepartment() {
     }
   };
 
-  // => propiedad HIDDEN == display:none
-
   return (
     <div className="grid items-center justify-center relative">
-      <div className=" bg-purple-legend grid auto-rows-r justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg">
+      <div className=" grid auto-rows justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg">
         <button className="justify-self-end"
         onClick={handleClose}
         >
         <CloseIcon/>
         </button>
-        <h1 className="text-3xl font-bold text-white-sand text-center">
+        <h1 className="text-3xl font-bold text-white-sand text-center ml-10 mr-10 mb-10">
           {title}
         </h1>
 
-        <div>
+        <div className="ml-10 mr-10 mb-10">
           <label
             htmlFor="department-name"
             className="block mb-2 text-sm font-medium text-black"
@@ -81,14 +79,14 @@ function CreateDepartment() {
             <input
               type="text"
               id="department-name"
-              className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block"
+              className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso"
               placeholder="Bookings"
               onChange={handleName}
             />
           </div>
         </div>
 
-        <div>
+        <div  className="ml-10 mr-10 mb-10">
           <label
             htmlFor="description"
             className="block mb-2 text-sm font-medium text-black"
@@ -96,14 +94,16 @@ function CreateDepartment() {
             Description
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none"></div>
-            <input
-              type="text"
-              id="description"
-              className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block"
-              placeholder="Groups reservations made directly"
-              onChange={handleDescription}
-            />
+            <div className="absolute inset-y-0 left-0 items-center">
+              <textarea
+                type="text"
+                id="description"
+                name='description'
+                className="h-20 bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block"
+                placeholder="Group reservations made directly"
+                onChange={handleDescription}
+              ></textarea>
+            </div>
           </div>
         </div>
 
@@ -111,7 +111,7 @@ function CreateDepartment() {
         {showAlertDenied && (
           <Alert type="red" svg="red" text="Please, check your details." />
         )}
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-10">
           <ButtonCustom onClick={handleCreate} text={confirm} type="confirm" />
         </div>
       </div>

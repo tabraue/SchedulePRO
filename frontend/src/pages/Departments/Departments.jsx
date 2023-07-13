@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { showAllDepartments } from "../../services/department.service";
-import CardDepartment from "../../components/CardDepartment/CardDepartment";
 import SubHeaderContent from "../../components/Header/SubHeaderContent/SubHeaderContent";
 import CreateDepartment from "./CreateDepartment/CreateDepartment";
 import ListDepartment from "../../components/CardDepartment/ListDepartment/ListDepartment";
+import CardDepartment from '../../components/CardDepartment/CardDepartment'
 
 function Departments() {
   const [departments, setDepartments] = useState([]);
   const [copyDepartments, setCopyDepartments] = useState([]);
+  const [showCreate, setShowCreate]=useState(false)
+  const [showCard, setShowCard] = useState(false)
   const searching = "Find a department";
 
   const showAll = async () => {
@@ -31,7 +33,18 @@ function Departments() {
     }
   };
 
-  const handleCreation = () => {};
+  // APPEARS CREATE DEPARTMENT
+  const handleCreation = () => {
+    setShowCreate(true)
+  };
+  // DISAPPEARS CREATE DEPARTM
+  const handleCloseCreate = () =>{
+    setShowCreate(false)
+  }
+  //APPEARS CARD DEPT
+  const handleCloseCard = () => {
+    setShowCard(true)
+  }
 
   return (
     <div className="grid grid-cols-6 grid-rows-8 m-5 max-h-screen">
@@ -54,17 +67,18 @@ function Departments() {
       <div className="col-start-4 col-end-7 row-start-3 row-end-3 grid m-10 gap-4 scroll-auto overflow-y-scroll whitespace-nowrap h-[50%] p-2">
           {copyDepartments.length > 0 ? (
             copyDepartments.map((el) => (
-              <ListDepartment key={el._id} info={el} />
+              <ListDepartment key={el._id} info={el}/>
             ))
           ) : (
-            <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center">
+            <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
               Department not found
             </h1>
           )}
         </div>
 
-      <div className="bg-blue-glacier col-start-1 col-end-4 row-start-3 row-end-4 rounded-lg m-10 h-[50%]">
-            <CreateDepartment/>
+      <div className="bg-blue-glacier col-start-1 col-end-4 row-start-3 row-end-8rounded-lg m-10 max-h-[50%] grid reltive">
+            {showCreate && <CreateDepartment  onClick={handleCloseCreate}/>}
+            {showCard && <CardDepartment info={el} onClick={handleCloseCard}/> }
       </div>
 
     </div>

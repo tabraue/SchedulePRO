@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { showEmployeesByDepartment } from "../../services/employee.service";
+import CloseIcon from '../Icon/CloseIcon'
 
-function CardDepartment({ info }) {
+
+function CardDepartment({ info, onClick }) {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
   
@@ -20,12 +22,18 @@ function CardDepartment({ info }) {
     return navigate("/home/");
   };
 
+    const handleClose = () => {
+    if(onClick) onClick()
+  }
+
   return (
     <div className="max-w-sm w-[400px] h-[220px] bg-white-sand border border-green-paradiso rounded-lg shadow">
 
-      {/*       <a href="#">
-        <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="asdf" />
-      </a> */}
+              <button className="justify-self-end"
+        onClick={handleClose}
+        >
+        <CloseIcon/>
+        </button>
       <div className="p-5">
         <Link to={`home/departments/${info._id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-paradiso text-center p-3">
