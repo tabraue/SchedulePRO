@@ -9,6 +9,10 @@ export const createEmployee = async (name, last_name, is_manager, email, departm
           email: email,
           department: department,
           position: position
+        },{
+            headers: {
+                token: localStorage.getItem('token')
+            }
         });
         return true;
       } catch (error) {
