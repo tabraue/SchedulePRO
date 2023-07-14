@@ -17,6 +17,7 @@ function Departments() {
   const [description, setDescription] = useState("");
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertDenied, setShowAlertDenied] = useState(false);
+  const [refresh, setRefresh] = useState(false)
   const searching = "Find a department";
   const title = "Create department";
   const confirm = "Confirm";
@@ -31,7 +32,9 @@ function Departments() {
   useEffect(() => {
     showAll();
     handleCreate();
-  }, []);
+  }, [refresh]);
+
+
 
   // TAKES DEPARTMENT NAME
   const handleName = (name) => {
@@ -72,6 +75,7 @@ function Departments() {
       );
       if (res) {
         setShowAlertSuccess(!showAlertSuccess);
+        setRefresh(!refresh)
         const delay = setTimeout(() => {
           setShowAlertSuccess(!showAlertSuccess);
         }, 1000);
@@ -218,7 +222,7 @@ function Departments() {
           <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
             {copyDepartments.length > 0 ? (
               copyDepartments.map((el) => (
-                <ListDepartment key={el._id} info={el} />
+                <ListDepartment key={el._id} info={el}/>
               ))
             ) : (
               <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">

@@ -11,7 +11,26 @@ function ListDepartment({ info }) {
   const [employees, setEmployees] = useState([]);
   const [openAcordion, setOpenAcordion] = useState(false);
   const [openDelete, setOpenDelete] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [name, setName] = useState();
+  const [description, setDescription] = useState();
 
+/*   const handleName = (name) => {
+    if (name.target.value.length !== 0 || name.target.value.length !== "")
+      setName(name);
+  };
+
+  // TAKES DEPARTMENT DESCRIPTOIN
+  const handleDescription = (description) => {
+    if (
+      description.target.value.length === 0 ||
+      description.target.value.length === ""
+    ) {
+      setDescription("");
+    } else {
+      setDescription(description);
+    }
+  }; */
   
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -41,7 +60,6 @@ function ListDepartment({ info }) {
     await deleteDepartment(id)
   }
 
-
   //IF DELETE BUTTON CLICKED -> ALERT -> IF (YES) YOU WANT TO DELETE DEPARTMENT:
   const handleClickYes = (id) => {
     setOpenDelete(false)
@@ -49,13 +67,23 @@ function ListDepartment({ info }) {
     departmentDeletion(id)
   }
 
-
   //IF DELETE BUTTON CLICKED -> ALERT -> IF (NO) YOU do not WANT TO DELETE DEPARTMENT:
   const handleClickNo = () => {
     setOpenDelete(false)
   }
 
+
+  const handleEdition = () => {
+    setEdit(!edit)
+  }
+
+
+
+//{`${edit && 'enabled'}`
+
   return (
+    <>
+{/*     <input type="text" className="enabled"/> */}
     <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-3 content-center rounded-md bg-white-sand h-full flex-shrink-0 w-9/12">
       <button className="col-start-1 col-end-1 justify-self-center">
         <FolderOpen />
@@ -87,12 +115,12 @@ function ListDepartment({ info }) {
                     <h3 className="text-md font-bold tracking-tight text-green-paradiso">
                       Manager:{" "}
                     </h3>
-                    <p className="font-normal text-black">
+                    <h3 className="font-normal text-black">
                       {" "}
                       {employees.map(
                         (el) => el.is_manager && <p key={el._id}> {el.name} </p>
                       )}
-                    </p>
+                    </h3>
                   </div>
 
                   <div className="border-b-2 border-green-paradiso p-3">
@@ -148,9 +176,9 @@ function ListDepartment({ info }) {
                     </div>
                   </div>
 
-                  <div className="flex ">
-                    <ButtonCustom text="Delete" type="cancel" onClick={handleDelete}/>
-                    <ButtonCustom text="Confirm" type="confirm" />
+                  <div className="flex space-x-4 justify-end">
+                    {!edit && <ButtonCustom text="Delete" type="cancel" onClick={handleDelete}/>}
+                    {edit ? <ButtonCustom text="Confirm" type="confirm"/> : <ButtonCustom text="Edit" type="yellow" onClick={handleEdition}/>}
                   </div>
 
                   {openDelete && <AlertDelete text={info.name +' department'} onConfirm={()=>handleClickYes(info._id)} onDecline={handleClickNo}/>}
@@ -174,100 +202,8 @@ function ListDepartment({ info }) {
         <p className="text-sm text-black h-full">{info.description}</p>
       </div>
     </div>
+    </>
   );
 }
 
 export default ListDepartment;
-
-/*
-                  <div className="border-b-2 border-green-paradiso p-3">
-                    <h3 className=" text-md font-bold tracking-tight text-green-paradiso">
-                      Employees:
-                    </h3>
-                    <ul>
-                      {employees.map((el) => (
-                        <li
-                          className="text-black list-none font-normal"
-                          key={el._id}
-                        >
-                          {" "}
-                          {el.name}{" "}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-
-*/
-
-/*
-  <div className="fixed inset-0 flex items-center justify-center z-500 b">
-            <div className="bg-white p-6 rounded shadow-lg">
-              <button
-                onClick={toggleModal}
-                className="justify-self-end mt-4 font-bold py-2 px-4 rounded"
-              >
-                <CloseIcon />
-              </button>
-              <h2 className="text-xl font-bold mb-4">{info.name}</h2>
-              <p>Contenido del modal...</p>
-            </div>
-          </div>
-
-
-*/
-/*
-<div id="accordion-collapse" data-accordion="collapse">
-  <h2 id="accordion-collapse-heading-1">
-    <button
-      type="button"
-      class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-      data-accordion-target="#accordion-collapse-body-1"
-      aria-expanded="true"
-      aria-controls="accordion-collapse-body-1"
-    >
-      <span>What is Flowbite?</span>
-      <svg
-        data-accordion-icon
-        class="w-3 h-3 rotate-180 shrink-0"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 10 6"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 5 5 1 1 5"
-        />
-      </svg>
-    </button>
-  </h2>
-  <div
-    id="accordion-collapse-body-1"
-    class="hidden"
-    aria-labelledby="accordion-collapse-heading-1"
-  >
-    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-      <p class="mb-2 text-gray-500 dark:text-gray-400">
-        Flowbite is an open-source library of interactive components built on
-        top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
-        more.
-      </p>
-      <p class="text-gray-500 dark:text-gray-400">
-        Check out this guide to learn how to{" "}
-        <a
-          href="/docs/getting-started/introduction/"
-          class="text-blue-600 dark:text-blue-500 hover:underline"
-        >
-          get started
-        </a>{" "}
-        and start developing websites even faster with components on top of
-        Tailwind CSS.
-      </p>
-    </div>
-  </div>
-</div>;
-*/
