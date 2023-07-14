@@ -3,9 +3,9 @@ import React from "react";
 function Icon({ color, d }) {
   //d = is the icon itself
   //color = in case color changes
-
+//z-50
   const colorGenerator = () => {
-    let style = "cursor-pointer z-50";
+    let style = "cursor-pointer ";
     switch (color) {
       case "blue":
         style += " w-4 h-4 text-blue-calypso";
