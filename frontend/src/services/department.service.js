@@ -8,8 +8,9 @@ export const createDepartment = async (name, description) => {
         },{
             headers: {
                 token: localStorage.getItem('token')
-            }});
-
+            }
+        }
+        );
         return res;
       } catch (error) {
         console.error(error);
@@ -62,7 +63,7 @@ export const updateDepartment = async (departmentId) => {
 
 export const deleteDepartment = async (departmentId) => {
     try {
-        const {data} = await api.delete(`/department/${departmentId}`,{},
+        const {data} = await api.delete(`/department/${departmentId}`,
         {
             headers: {
                 token: localStorage.getItem('token')
