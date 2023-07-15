@@ -7,9 +7,9 @@ import {
 import Alert from "../../components/Alert/Alert";
 import CloseIcon from "../../components/Icon/CloseIcon";
 import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
-import ListEmployee from "../../components/CardEmployee/ListEmployee/ListEmployee";
+import ListEmployee from "../../components/ListEmployee/ListEmployee"
 import { showAllDepartments } from "../../services/department.service";
-import DepartmentIcon from "../../components/Icon/DepartmentIcon";
+
 
 function Employees() {
   const [employees, setEmployees] = useState([]);

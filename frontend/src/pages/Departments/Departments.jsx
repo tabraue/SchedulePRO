@@ -4,7 +4,7 @@ import {
   showAllDepartments,
 } from "../../services/department.service";
 import SubHeaderContent from "../../components/Header/SubHeaderContent/SubHeaderContent";
-import ListDepartment from "../../components/CardDepartment/ListDepartment/ListDepartment";
+import ListDepartment from "../../components/ListDepartment/ListDepartment";
 import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
 import Alert from "../../components/Alert/Alert";
 import CloseIcon from "../../components/Icon/CloseIcon";

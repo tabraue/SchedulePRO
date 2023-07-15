@@ -23,7 +23,7 @@ function SignUp() {
     setName(name);
   };
 
-  const handleVat = (vat) => { 
+  const handleVat = (vat) => {
     setVat(vat);
   };
 
@@ -69,9 +69,10 @@ function SignUp() {
       if (signCompany) {
         setShowAlertSuccess(!showAlertSuccess);
         const delay = setTimeout(() => {
-          navigate('/login')
+          navigate("/login");
         }, 1000);
-        return () => clearTimeout(setShowAlertSuccess(!showAlertSuccess), delay);
+        return () =>
+          clearTimeout(setShowAlertSuccess(!showAlertSuccess), delay);
       } else {
         setShowAlertDenied(true);
         const delay = setTimeout(() => {
@@ -89,8 +90,19 @@ function SignUp() {
   };
 
   return (
-    <div className="flex items-center h-screen w-full justify-center ">
-      <div className="grid auto-rows-r justify-items-stretch gap-y-3 place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-sm">
+<div className="min-w-screen h-screen flex items-start justify-center m-12">
+  <div className="relative grid grid-cols-3">
+    <div className="absolute inset-0 col-start-1 col-span-1 flex justify-end border-solid border-2 border-blue-calypso">
+        <img
+          src="https://source.unsplash.com/random?technology,business"
+          alt="business"
+          className="w-[100%] h-[100%] object-cover relative"
+        />
+      </div>
+
+
+
+      <div className="col-start-2 col-span-2  bg-white-sand grid auto-rows-r justify-items-stretch gap-y-3 place-content-center content-center items-center border-solid border-2 border-r-blue-calypso border-t-blue-calypso border-b-blue-calypso p-6 ">
         <h1 className="text-3xl font-extrabold text-blue-calypso text-center">
           {title}
         </h1>
@@ -143,7 +155,7 @@ function SignUp() {
               value="term"
               className="w-4 h-4 text-blue-calypso bg-white-sand border-gray-l rounded focus:ring-blue-glacier "
               required
-              checked={isChecked1} 
+              checked={isChecked1}
               onChange={handleChecked1}
             />
             <label
@@ -176,22 +188,17 @@ function SignUp() {
           </div>
         </div>
 
-        <div className=" text-blue-calypso hover:text-yellow-sandy ">
+        <div className=" text-blue-calypso font-bold hover:text-yellow-sandy ">
           <Link to="/login">I already have an account.</Link>
         </div>
-        {showAlertSuccess && (
-          <Alert type='green' svg='green' text="Success!" />
-        )}
+        {showAlertSuccess && <Alert type="green" svg="green" text="Success!" />}
         {showAlertDenied && (
-          <Alert type='red' svg='red' text="Please, check your details." />
+          <Alert type="red" svg="red" text="Please, check your details." />
         )}
         <div className="flex justify-end">
-          <ButtonCustom
-            onClick={handleSignUp}
-            text={signup}
-            type="blue"
-          />
+          <ButtonCustom onClick={handleSignUp} text={signup} type="blue" />
         </div>
+      </div>
       </div>
     </div>
   );

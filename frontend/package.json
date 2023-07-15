@@ -15,6 +15,7 @@
     "axios": "^1.4.0",
     "flowbite": "^1.7.0",
     "flowbite-react": "^0.4.10",
+    "fullcalendar": "^6.1.8",
     "prettier": "^3.0.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",

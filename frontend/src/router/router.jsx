@@ -8,11 +8,12 @@ import Home from "../pages/Home/Home";
 import Details from "../pages/Details/Details";
 import Departments from "../pages/Departments/Departments";
 import Employees from "../pages/Employees/Employees";
+import Welcome from "../pages/Welcome/Welcome";
 
 
 
 const checkLogin = () => {
-  return localStorage.getItem('token') ? redirect('/home') : null // WAY TO CHECK IF LOGED
+  return localStorage.getItem('token') ? redirect('/home/dashboard') : null // WAY TO CHECK IF LOGED
 }
 
 const check = () => {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <Error />,
     children: [
+      { path: "/welcome", element: <Welcome /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/login", element: <LogIn />, loader: checkLogin}, //, loader: checkLogin
       { path: "/terms", element: <Terms /> },
@@ -41,7 +43,6 @@ export const router = createBrowserRouter([
       { path: "/home/details", element: <Details />, loader: check }, //, loader: check 
       { path: "/home/departments", element: <Departments />, loader: check }, //, loader: check 
       { path: "/home/employees", element: <Employees />, loader: check }, //, loader: check 
-
     ],
   },
 ]);

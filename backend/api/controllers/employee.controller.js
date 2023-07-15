@@ -20,7 +20,7 @@ const createEmployee = async (req, res) => {
 
         if(!employee) 
             return res.status(400).send('>> Something went wrong creating the employee') 
-        //await mail(employee, random)
+        await mail(employee, random)
         
         return res.status(200).json(employee)
     } catch (error) {

@@ -26,7 +26,7 @@ function Email({ text, id, onChange }) {
         <input
           type="email"
           id={id}
-          className="bg-white-sand border-blue-calypso text-blue-calypso text-sm rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-full pl-10 p-2.5"
+          className="bg-white-sand border-blue-calypso text-blue-calypso text-sm rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-96 pl-10 p-2.5"
           placeholder="email@schedule-pro.com"
           onChange={handleChange}
         />
