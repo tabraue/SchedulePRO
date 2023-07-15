@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import CloseIcon from "../../Icon/CloseIcon";
-import ButtonCustom from "../../ButtonCustom/ButtonCustom";
-import AlertDelete from "../../Alert/AlertDelete/AlertDelete";
-import { deleteEmployee } from "../../../services/employee.service";
+import CloseIcon from "../Icon/CloseIcon";
+import ButtonCustom from "../ButtonCustom/ButtonCustom";
+import AlertDelete from "../Alert/AlertDelete/AlertDelete";
+import { deleteEmployee } from "../../services/employee.service";
 
-import Profile from "../../Icon/Profile";
+import Profile from "../Icon/Profile";
 
 function ListEmployee({ info, setFlagDelete, flagDelete }) {
   const [openmodalstate, setModal] = useState(false);

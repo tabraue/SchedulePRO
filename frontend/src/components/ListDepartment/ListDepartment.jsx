@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import FolderOpen from "../../../components/Icon/FolderOpen";
-import CloseIcon from "../../Icon/CloseIcon";
-import { showEmployeesByDepartment } from "../../../services/employee.service";
-import ButtonCustom from "../../ButtonCustom/ButtonCustom";
-import AlertDelete from "../../Alert/AlertDelete/AlertDelete";
-import { deleteDepartment } from "../../../services/department.service";
+import FolderOpen from "../Icon/FolderOpen";
+import CloseIcon from "../Icon/CloseIcon";
+import { showEmployeesByDepartment } from "../../services/employee.service";
+import ButtonCustom from "../ButtonCustom/ButtonCustom";
+import AlertDelete from "../Alert/AlertDelete/AlertDelete";
+import { deleteDepartment } from "../../services/department.service";
 
 function ListDepartment({ info, setFlagDelete, flagDelete  }) {
   const [openmodalstate, setModal] = useState(false);
