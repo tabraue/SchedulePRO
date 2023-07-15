@@ -6,31 +6,13 @@ import ButtonCustom from "../../ButtonCustom/ButtonCustom";
 import AlertDelete from "../../Alert/AlertDelete/AlertDelete";
 import { deleteDepartment } from "../../../services/department.service";
 
-function ListDepartment({ info }) {
+function ListDepartment({ info, setFlagDelete, flagDelete  }) {
   const [openmodalstate, setModal] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [openAcordion, setOpenAcordion] = useState(false);
   const [openDelete, setOpenDelete] = useState(false)
   const [edit, setEdit] = useState(false)
-  const [name, setName] = useState();
-  const [description, setDescription] = useState();
 
-/*   const handleName = (name) => {
-    if (name.target.value.length !== 0 || name.target.value.length !== "")
-      setName(name);
-  };
-
-  // TAKES DEPARTMENT DESCRIPTOIN
-  const handleDescription = (description) => {
-    if (
-      description.target.value.length === 0 ||
-      description.target.value.length === ""
-    ) {
-      setDescription("");
-    } else {
-      setDescription(description);
-    }
-  }; */
   
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -43,6 +25,7 @@ function ListDepartment({ info }) {
 
   const toggleModal = () => {
     setModal(!openmodalstate);
+    setOpenDelete(false)
   };
 
   //OPEN-CLOSE EMPLOYEES ACCORDION
@@ -58,6 +41,7 @@ function ListDepartment({ info }) {
 
   const departmentDeletion =  async (id) =>{
     await deleteDepartment(id)
+    setFlagDelete(!flagDelete)
   }
 
   //IF DELETE BUTTON CLICKED -> ALERT -> IF (YES) YOU WANT TO DELETE DEPARTMENT:
@@ -78,12 +62,8 @@ function ListDepartment({ info }) {
   }
 
 
-
-//{`${edit && 'enabled'}`
-
   return (
     <>
-{/*     <input type="text" className="enabled"/> */}
     <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-3 content-center rounded-md bg-white-sand h-full flex-shrink-0 w-9/12">
       <button className="col-start-1 col-end-1 justify-self-center">
         <FolderOpen />
@@ -176,7 +156,7 @@ function ListDepartment({ info }) {
                     </div>
                   </div>
 
-                  <div className="flex space-x-4 justify-end">
+                  <div className="flex space-x-4 justify-end pt-10">
                     {!edit && <ButtonCustom text="Delete" type="cancel" onClick={handleDelete}/>}
                     {edit ? <ButtonCustom text="Confirm" type="confirm"/> : <ButtonCustom text="Edit" type="yellow" onClick={handleEdition}/>}
                   </div>
@@ -199,7 +179,7 @@ function ListDepartment({ info }) {
         </button>
       </div>
       <div className="col-start-2 col-end-3">
-        <p className="text-sm text-black h-full">{info.description}</p>
+        <p className="text-md text-black h-full">{info.description}</p>
       </div>
     </div>
     </>

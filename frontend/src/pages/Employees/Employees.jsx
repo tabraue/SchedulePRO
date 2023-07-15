@@ -30,6 +30,7 @@ function Employees() {
   const [refresh, setRefresh] = useState(false);
   const [isManagerActive, setIsManagerActive] = useState(false);
   const [isChecked, setisChecked] = useState(false);
+  const [flagDelete, setFlagDelete] = useState(false)
   const searching = "Find an employee";
   const title = "Add an employee";
   const confirm = "Confirm";
@@ -46,7 +47,7 @@ function Employees() {
 
   useEffect(() => {
     showAll();
-  }, [refresh]);
+  }, [refresh, flagDelete]);
 
   // TAKES EMPLOYEE NAME
   const handleName = (name) => {
@@ -72,7 +73,7 @@ function Employees() {
 
   // TAKES EMPLOYEE EMAIL
   const handleEmail = (email) => {
-    setEmail(email);
+    setEmail(email.target.value);
   };
 
   //VALIDATES EMAIL
@@ -96,23 +97,58 @@ function Employees() {
 
   // TAKES EMPLOYEE POSITION
   const handlePosition = (position) => {
-    setPosition(position);
-  };
-
-  const handleCreate = async () => {
-    if (validateEmail(email) && department) {
-      const res = await createEmployee(
-        name,
-        lastName,
-        isManager,
-        department,
-        position.target.value,
-        email.target.value
-      );
+    if(position.target.value === ""){
+      setPosition("")
+    }else{
+      setPosition(position.target.value);
     }
   };
 
 
+  const cleanInputs = () => {
+    setName('')
+    setLastName('')
+    setSelectedDepartment('')
+    setEmail('')
+    setPosition('')
+    setisChecked(false)
+  }
+
+
+  const handleCreate = async () => {
+    if (validateEmail(email) && department !== "") {
+      const res = await createEmployee(
+        name,
+        lastName,
+        isManager,
+        email,
+        department,
+        position
+      );
+      if (res) {
+        setShowAlertSuccess(!showAlertSuccess);
+        setRefresh(!refresh)
+        const delay = setTimeout(() => {
+          setShowAlertSuccess(false);
+        }, 1000);
+        cleanInputs()
+        return () => clearTimeout(delay);
+        
+      } else {
+        setShowAlertDenied(true);
+        const delay = setTimeout(() => {
+          setShowAlertDenied(false);
+        }, 2000);
+        return () => clearTimeout(delay);
+      }
+    } else {
+      setShowAlertDenied(true);
+      const delay = setTimeout(() => {
+        setShowAlertDenied(false);
+      }, 2000);
+      return () => clearTimeout(delay);
+    }
+  };
 
   // HANDLES SEARCH BAR
   const handleSearch = (e) => {
@@ -136,7 +172,6 @@ function Employees() {
     setShowCreate(false);
   };
 
-
   return (
     <>
       <div className="grid grid-cols-6 grid-rows-2 m-5 max-h-screen">
@@ -157,11 +192,11 @@ function Employees() {
       </div>
 
       {showCreate ? (
-        <div className="grid grid-cols-2 ">
-          <div className="bg-blue-glacier col-start-1 rounded-lg m-10 grid h-128">
+        <div className="grid grid-cols-2">
+          <div className="bg-blue-glacier col-start-1 rounded-lg grid h-128">
             {showCreate && (
-              <div className="grid items-center justify-center">
-                <div className=" grid auto-rows justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
+              <div className="grid items-center justify-center h-full overflow-auto">
+                <div className=" grid  auto-rows-max grid-flow-row justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
                   {showAlertSuccess && (
                     <Alert type="green" svg="green" text="Success!" />
                   )}
@@ -170,82 +205,72 @@ function Employees() {
                   )}
 
                   <button
-                    className="justify-self-end"
+                    className="justify-self-end row-span-1 col-start-1 col-end-3"
                     onClick={handleCloseCreate}
                   >
                     <CloseIcon />
                   </button>
 
-                  <h1 className="text-3xl font-bold text-green-paradiso text-center ml-10 mr-10 mb-10">
+                  <h1 className="m-auto p-3 text-3xl font-bold text-green-paradiso text-center row-span-1 col-start-1 col-end-3 justify-self-center self-center inset-y-0 left-0 flex items-center ">
                     {title}
                   </h1>
 
-                  <div className="ml-10 mr-10 mb-10">
+                  <div className="m-auto p-3 row-start-3 col-start-1">
                     <label
                       htmlFor="employee-name"
-                      className="block mb-2 text-sm font-medium text-black"
+                      className="block mb-2 text-sm font-medium text-black  self-center"
                     >
                       Employee's Name
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none" />
-                      <input
-                        type="text"
-                        id="employee-name"
-                        className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
-                        placeholder="Jane"
-                        onChange={handleName}
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      id="employee-name"
+                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                      onChange={handleName}
+                      value={name}
+                    />
                   </div>
 
-                  <div className="ml-10 mr-10 mb-10">
+                  <div className="m-auto p-3 row-start-3 col-start-2">
                     <label
                       htmlFor="employee-last-name"
                       className="block mb-2 text-sm font-medium text-black"
                     >
                       Employee's Last Name
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none" />
-                      <input
-                        type="text"
-                        id="employee-last-name"
-                        className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
-                        placeholder="Doe"
-                        onChange={handleLastName}
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      id="employee-last-name"
+                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
+                      onChange={handleLastName}
+                      value={lastName}
+                    />
                   </div>
 
-                  <div className="ml-10 mr-10 mb-10">
+                  <div className="m-auto p-3 row-start-4 col-start-1 relative">
                     <label
                       htmlFor="employee-department"
                       className="block mb-2 text-sm font-medium text-black"
                     >
                       Employee's Department
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none" />
-                        <input
-                          type="text"
-                          id="employee-department"
-                          className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                          placeholder="Front desk"
-                          onClick={() => setOpenDepartments(!openDepartments)}
-                          onChange={handleDepartment}
-                          value={selectedDepartment}
-                        />
-                      </div>
+                    <input
+                      type="text"
+                      id="employee-department"
+                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                      onClick={() => setOpenDepartments(!openDepartments)}
+                      onChange={handleDepartment}
+                      value={selectedDepartment}
+                    />
                     {openDepartments && copyDepartments.length > 0 && (
-                      <ul className="mt-2 bg-white-sand border border-gray-200 rounded-md shadow-md">
+                      <ul className="mt-2 bg-white-sand border border-gray-200 rounded-md shadow-md max-h-40 overflow-y-scroll  absolute z-10">
                         {copyDepartments.map((department) => (
                           <li
                             key={department._id}
                             className="px-4 py-2 cursor-pointer hover:bg-gray-100"
                             onClick={() => {
                               setSelectedDepartment(department.name);
-                              setDepartment(department._id)
+                              setDepartment(department._id);
                               setOpenDepartments(false);
                             }}
                           >
@@ -256,90 +281,74 @@ function Employees() {
                     )}
                   </div>
 
-                  <div className="ml-10 mr-10 mb-10  flex items-center">
-                    <div className="relative  flex items-center">
-                      <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none" />
-                      <input
-                      id="link-checkbox"
-                      type="checkbox"
-                      value="ismanager"
-                      className="w-4 h-4 text-blue-calypso bg-white-sand border-gray-l rounded focus:ring-blue-glacier "
-                      required
-                      checked={isChecked} 
-                      onChange={handleChecked}
-                    />
-                    <label
-                      htmlFor="link-checkbox"
-                      className="ml-2 text-lg font-medium text-blue-calypso  flex items-center"
-                    > Manager 
-                    </label>
-                    </div>
-                  </div>
-
-
-                  <div className="ml-10 mr-10 mb-10">
+                  <div className="m-auto p-3 row-start-5 col-start-1">
                     <label
                       htmlFor="position"
                       className="block mb-2 text-sm font-medium text-black"
                     >
                       Position description
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 items-center">
-                        <textarea
-                          type="text"
-                          id="position"
-                          name="position"
-                          className=" bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-64 resize-none"
-                          placeholder="Checkin"
-                          onChange={handlePosition}
-                        ></textarea>
-                      </div>
-                    </div>
+                    <textarea
+                      type="text"
+                      id="position"
+                      name="position"
+                      className=" bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-64 resize-none"
+                      onChange={handlePosition}
+                      value={position}
+                    ></textarea>
                   </div>
-
-                  <div className="ml-10 mr-10 mb-10 mt-12">
+                  <div className="m-auto p-3 row-start-4 col-start-2">
                     <label
                       htmlFor="employee-email"
                       className="block mb-2 text-sm font-medium text-black"
                     >
                       Employee's Email
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none" />
-                      <input
-                        type="email"
-                        id="employee-email"
-                        className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
-                        placeholder="jane@doe.com"
-                        onChange={handleEmail}
-                      />
-                    </div>
+                    <input
+                      type="email"
+                      id="employee-email"
+                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
+                      onChange={handleEmail}
+                      value={email}
+                    />
                   </div>
 
-                  <div className="flex justify-end mt-10">
-                    <ButtonCustom
-                      onClick={handleCreate}
-                      text={confirm}
-                      type="confirm"
-                    />
+                  <div className="grid grid-cols-2 justify-end row-start-5 col-span-2 p-5 self-end">
+                    <div className="grid-cols-1 items-start justify-center self-center">
+                      <input
+                        id="link-checkbox"
+                        type="checkbox"
+                        value="ismanager"
+                        className="w-4 h-4 text-blue-calypso bg-white-sand border-gray-l rounded focus:ring-blue-glacier mr-2 self-center"
+                        required
+                        checked={isChecked}
+                        onChange={handleChecked}
+                      />
+                      <label
+                        htmlFor="link-checkbox"
+                        className="text-lg font-medium text-blue-calypso"
+                      >
+                        Manager
+                      </label>
+                    </div>
+                    <div className="grid-col-2 items-start justify-center self-center">
+                      <ButtonCustom
+                        onClick={handleCreate}
+                        text={confirm}
+                        type="confirm"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             )}
           </div>
 
-
-
-
-
-
-
           <div className="col-start-2 h-128">
             <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
               {copyEmployees.length > 0 ? (
                 copyEmployees.map((el) => (
-                  <ListEmployee key={el._id} info={el} />
+                  <ListEmployee key={el._id} info={el}  setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>
                 ))
               ) : (
                 <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
@@ -353,7 +362,7 @@ function Employees() {
         <div className="col-start-2 h-128">
           <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
             {copyEmployees.length > 0 ? (
-              copyEmployees.map((el) => <ListEmployee key={el._id} info={el} />)
+              copyEmployees.map((el) => <ListEmployee key={el._id} info={el} setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>)
             ) : (
               <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
                 Employee not found

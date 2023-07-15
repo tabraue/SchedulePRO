@@ -2,7 +2,7 @@ import { api } from "./api.js";
 
 export const createEmployee = async (name, last_name, is_manager, email, department, position) => {
     try {
-        await api.post("/employee/", {
+        await api.post("/employee", {
           name: name,
           last_name: last_name,
           is_manager: is_manager,

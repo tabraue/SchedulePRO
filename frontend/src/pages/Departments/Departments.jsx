@@ -18,6 +18,7 @@ function Departments() {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertDenied, setShowAlertDenied] = useState(false);
   const [refresh, setRefresh] = useState(false)
+  const [flagDelete, setFlagDelete] = useState(false)
   const searching = "Find a department";
   const title = "Create department";
   const confirm = "Confirm";
@@ -32,7 +33,7 @@ function Departments() {
   useEffect(() => {
     showAll();
     handleCreate();
-  }, [refresh]);
+  }, [refresh, flagDelete]);
 
 
 
@@ -66,6 +67,11 @@ function Departments() {
     }
   };
 
+  const cleanInputs = () => {
+    setName('')
+    setDescription('')
+  }
+
   // HANDLE TO CREATE A DEPARTMENT
   const handleCreate = async () => {
     if (name) {
@@ -79,6 +85,7 @@ function Departments() {
         const delay = setTimeout(() => {
           setShowAlertSuccess(!showAlertSuccess);
         }, 1000);
+        cleanInputs()
         return () => clearTimeout(delay);
       } else {
         setShowAlertDenied(true);
@@ -137,7 +144,7 @@ function Departments() {
                     <Alert
                       type="red"
                       svg="red"
-                      text="Please, check your details."
+                      text="Please, check details."
                     />
                   )}
 
@@ -165,7 +172,6 @@ function Departments() {
                         type="text"
                         id="department-name"
                         className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
-                        placeholder="Bookings"
                         onChange={handleName}
                       />
                     </div>
@@ -185,7 +191,6 @@ function Departments() {
                           id="description"
                           name="description"
                           className="h-20 bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-64 resize-none"
-                          placeholder="Group reservations made directly"
                           onChange={handleDescription}
                         ></textarea>
                       </div>
@@ -208,7 +213,7 @@ function Departments() {
             <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
               {copyDepartments.length > 0 ? (
                 copyDepartments.map((el) => (
-                  <ListDepartment key={el._id} info={el} />
+                  <ListDepartment key={el._id} info={el}  setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>
                 ))) : (
                 <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
                   Department not found
@@ -222,7 +227,7 @@ function Departments() {
           <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
             {copyDepartments.length > 0 ? (
               copyDepartments.map((el) => (
-                <ListDepartment key={el._id} info={el}/>
+                <ListDepartment key={el._id} info={el}  setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>
               ))
             ) : (
               <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">

@@ -17,33 +17,33 @@ function ButtonCustom({ onClick, text, type, navigate }) {
 
     switch (type) {
       case "yellow":
-        styles += " text-white-sand bg-yellow-sandy hover:bg-yellow-legend focus:ring-yellow-sandy";
+        styles += " text-white-sand bg-yellow-sandy hover:bg-yellow-legend focus:ring-yellow-sandy p-5";
         break;
       case "icon":
-        styles += " text-black bg-green-vista hover:bg-white-sand focus:ring-green-vista";
+        styles += " text-black bg-green-vista hover:bg-white-sand focus:ring-green-vista p-10";
         break;
       case "confirm":
         styles += " text-white-sand bg-green-bay hover:bg-green-paradiso focus:ring-green-bay";
         break;
       case "cancel":
-        styles += " text-white-sand bg-red-chestnut hover:bg-red-legend focus:ring-red-chestnut";
+        styles += " text-white-sand bg-red-chestnut hover:bg-red-legend focus:ring-red-chestnut p-5";
         break;
       case "blue":
-        styles += " text-white-sand bg-blue-calypso hover:bg-blue-glacier focus:ring-blue-calypso";
+        styles += " text-white-sand bg-blue-calypso hover:bg-blue-glacier focus:ring-blue-calypso p-5";
         break;
       default:
-        styles += " text-white-sand bg-blue-calypso hover:bg-blue-glacier focus:ring-blue-calypso";
+        styles += " text-white-sand bg-blue-calypso hover:bg-blue-glacier focus:ring-blue-calypso p-5";
         break;
     }
     return styles;
   };
 
   return (
-    <div className="p-10">
+
       <button type="button" onClick={handleClick} className={generateStyles()}>
         {text}
       </button>
-    </div>
+
   );
 }
 
