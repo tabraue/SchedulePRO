@@ -1,0 +1,10 @@
+
+
+.fc-daygrid-day {
+    background-color: #75d6dd; /* Color de fondo de las celdas */
+}
+  
+.fc-daygrid-day:hover {
+    background-color: #dcdcdc; /* Color de fondo de las celdas al pasar el mouse */
+}
+

@@ -29,7 +29,6 @@ const companySchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
-    
 })
 
 

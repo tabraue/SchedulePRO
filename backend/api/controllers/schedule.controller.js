@@ -62,6 +62,24 @@ const getOneSchedule = async (req, res) => {
 }
 
 
+const getOneScheduleByShift = async (req, res) =>{
+    try {
+        const companyId = res.locals.company._id
+        const department = await DepartmentModel.findOne({_id: req.params.departmentId, company: companyId})
+        if(!department)
+            return res.status(400).send('>> There is no department') 
+        const schedule = await ScheduleModel.find({department: req.params.departmentId, shift: req.params.shiftId}).populate("employee")
+        if(!schedule)
+            return res.status(400).send('>> There is no schedule for this department') 
+        return res.status(200).json(schedule)       
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send('>> Error')
+    }
+}
+
+
+
 const updateOneSchedule = async (req, res) => {
     try {
         const schedule = await ScheduleModel.findOneAndUpdate({_id: req.params.scheduleId}, 
@@ -97,5 +115,6 @@ module.exports = {
     getAllSchedules,
     getOneSchedule,
     updateOneSchedule,
-    deleteOneSchedule
+    deleteOneSchedule,
+    getOneScheduleByShift
 }

@@ -5,7 +5,7 @@ const scheduleSchema = mongoose.Schema({
     date: {
         type: Date,
         required: true,
-        default: () => DateTime.local().toFormat('dd/MM/yyyy')
+/*         default: () => DateTime.local().toFormat('dd/MM/yyyy') */
     },
     shift: {
         type: String,

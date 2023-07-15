@@ -7,6 +7,10 @@ export const createSchedule = async (date, shift, department, employee) => {
           shift: shift,
           department: department,
           employee: employee
+        },{
+            headers: {
+                token: localStorage.getItem('token')
+            }
         });
         return true;
       } catch (error) {
@@ -17,6 +21,7 @@ export const createSchedule = async (date, shift, department, employee) => {
 
 
 export const showScheduleFromDepartment = async (departmentId) => {
+    if(departmentId === "" || departmentId === undefined) return false
     try {
         const {data} = await api.get(`/schedule/${departmentId}`,{
             headers: {
@@ -29,6 +34,23 @@ export const showScheduleFromDepartment = async (departmentId) => {
         return false;
     }
 }
+
+export const showScheduleFromDepartmentByShift = async (departmentId, shiftId) => {
+    if(departmentId === "" || departmentId === undefined) return false
+    try {
+        const {data} = await api.get(`/schedule/${departmentId}/shift/${shiftId}`,{
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+        return data
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+
 
 
 export const showAllSchedules = async () => {
@@ -84,3 +106,4 @@ export const deleteSchedule = async (scheduleId) => {
 //router.get('/',checkAuth, getAllSchedules) // SHOWS ALL SCHEDULES FROM ALL DEPARTMENTS WITH EMPLOYEE INFO POPULATED
 //router.patch('/:scheduleId', checkAuth, updateOneSchedule)
 //router.delete('/:scheduleId', checkAuth, deleteOneSchedule)
+//router.get('/:departmentId/shift/:shiftId', checkAuth, getOneScheduleByShift) //SHOWS ONE SCHEDULE'S DEPARTMENT FILTERED BY SHIFT
