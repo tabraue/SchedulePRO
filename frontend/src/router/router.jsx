@@ -40,10 +40,7 @@ export const router = createBrowserRouter([
       { path: "/home/dashboard", element: <Home />, loader: check }, //, loader: check 
       { path: "/home/details", element: <Details />, loader: check }, //, loader: check 
       { path: "/home/departments", element: <Departments />, loader: check }, //, loader: check 
-      //{ path: "/home/departments/:departmentId", element:, loader: check }, //, loader: check   VIEW ONE SINGLE DEPARTMENT
       { path: "/home/employees", element: <Employees />, loader: check }, //, loader: check 
-      //{ path: "/home/employees/:employeeId", element: , loader: check }, //, loader: check    VIEW ONE SINGLE EMPLOYEE
-
 
     ],
   },

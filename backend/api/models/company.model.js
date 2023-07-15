@@ -28,7 +28,8 @@ const companySchema = mongoose.Schema({
     isOwner: {
         type: Boolean,
         default: true
-    }
+    },
+    
 })
 
 

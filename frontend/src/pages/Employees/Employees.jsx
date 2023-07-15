@@ -192,8 +192,8 @@ function Employees() {
       </div>
 
       {showCreate ? (
-        <div className="grid grid-cols-2">
-          <div className="bg-blue-glacier col-start-1 rounded-lg grid h-128">
+        <div className="grid grid-cols-2 ">
+          <div className="bg-blue-glacier col-start-1 rounded-lg grid h-128 m-10 ">
             {showCreate && (
               <div className="grid items-center justify-center h-full overflow-auto">
                 <div className=" grid  auto-rows-max grid-flow-row justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
@@ -344,7 +344,7 @@ function Employees() {
             )}
           </div>
 
-          <div className="col-start-2 h-128">
+          <div className="col-start-2 h-128 mt-3">
             <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
               {copyEmployees.length > 0 ? (
                 copyEmployees.map((el) => (
