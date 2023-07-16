@@ -10,6 +10,7 @@ import Alert from "../../components/Alert/Alert";
 import CloseIcon from "../../components/Icon/CloseIcon";
 import { useLocation } from "react-router-dom";
 
+
 function Departments() {
   const [departments, setDepartments] = useState([]);
   const [copyDepartments, setCopyDepartments] = useState([]);
@@ -120,6 +121,7 @@ function Departments() {
 
   return (
     <>
+    
       <div className="grid grid-cols-6 grid-rows-2 m-5 max-h-screen">
         <div className="col-start-1 col-end-7 row-start-1 justify-self-center grid m-3">
           <h1 className="text-3xl font-extrabold text-green-paradiso text-center justify-self-center self-center">
@@ -222,9 +224,9 @@ function Departments() {
                   />
                 ))
               ) : (
-                <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
-                  Department not found
-                </h1>
+                  <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
+                    Department not found
+                  </h1>
               )}
             </div>
           </div>

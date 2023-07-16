@@ -58,7 +58,7 @@ function Details() {
                 >
                   <h3 className="text-md font-bold tracking-tight text-green-paradiso">
                     Departments:{" "}
-                    <p className="font-normal text-black">
+                    <p className="font-bold text-green-paradiso">
                       {departments.length}
                     </p>
                   </h3>
@@ -114,7 +114,7 @@ function Details() {
                 >
                   <h3 className="text-md font-bold tracking-tight text-green-paradiso">
                     Employees:{" "}
-                    <p className="font-normal text-black">{employees.length}</p>
+                    <p className="font-bold text-green-paradiso">{employees.length}</p>
                   </h3>
                   <svg
                     data-accordion-icon

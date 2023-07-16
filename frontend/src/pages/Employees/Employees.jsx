@@ -19,18 +19,16 @@ function Employees() {
   const [lastName, setLastName] = useState("");
   const [isManager, setIsManager] = useState(false);
   const [email, setEmail] = useState("");
-  const [department, setDepartment] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [position, setPosition] = useState("");
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertDenied, setShowAlertDenied] = useState(false);
-  const [allDepartments, setAllDepartments] = useState([]);
   const [copyDepartments, setCopyDepartments] = useState([]);
-  const [openDepartments, setOpenDepartments] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isManagerActive, setIsManagerActive] = useState(false);
   const [isChecked, setisChecked] = useState(false);
   const [flagDelete, setFlagDelete] = useState(false);
+
   const searching = "Find an employee";
   const title = "Add an employee";
   const confirm = "Confirm";
@@ -44,7 +42,6 @@ function Employees() {
     const departments = await showAllDepartments();
     setEmployees(data);
     setCopyEmployees(data);
-    setAllDepartments(departments);
     setCopyDepartments(departments);
   };
 
@@ -52,6 +49,7 @@ function Employees() {
     showAll();
   }, [refresh, flagDelete]);
 
+  //FLAG TRUE ARRIVES FROM HOME TO SHOW THE CREATION PANEL DIRECTLY
   useEffect(() => {
     setShowCreate(paramValue || false);
   }, [paramValue]);
@@ -90,16 +88,8 @@ function Employees() {
   };
 
   // TAKES EMPLOYEE DEPARTMENT
-  const handleDepartment = (department) => {
-    const value = department.target.value.toLowerCase();
-    const filterSearch = copyDepartments.filter((el) =>
-      el.name.toLowerCase().includes(value)
-    );
-    setCopyDepartments(filterSearch);
-    setSelectedDepartment(value);
-    if (value.length <= 0) {
-      setCopyDepartments(allDepartments);
-    }
+  const handleDepartment = (id) => {
+    setSelectedDepartment(id);
   };
 
   // TAKES EMPLOYEE POSITION
@@ -176,6 +166,9 @@ function Employees() {
     setShowCreate(false);
   };
 
+
+
+
   return (
     <>
       <div className="grid grid-cols-6 grid-rows-2 m-5 max-h-screen">
@@ -251,31 +244,22 @@ function Employees() {
                     >
                       Employee's Department
                     </label>
-                    <input
-                      type="text"
-                      id="employee-department"
-                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                      onClick={() => setOpenDepartments(!openDepartments)}
-                      onChange={handleDepartment}
+                    <select
+                      onChange={(e) => handleDepartment(e.target.value)}
                       value={selectedDepartment}
-                    />
-                    {openDepartments && copyDepartments.length > 0 && (
-                      <ul className="mt-2 bg-white-sand border border-gray-200 rounded-md shadow-md max-h-40 overflow-y-scroll  absolute z-10">
-                        {copyDepartments.map((department) => (
-                          <li
-                            key={department._id}
-                            className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                            onClick={() => {
-                              setSelectedDepartment(department.name);
-                              setDepartment(department._id);
-                              setOpenDepartments(false);
-                            }}
-                          >
-                            Department: {department.name}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                      className="justify-self-start  bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                    >
+                      <option value="">Select Department</option>
+                      {copyDepartments.map((department) => (
+                        <option
+                          key={department._id}
+                          value={department._id}
+                          className="px-4 py-2 cursor-pointer"
+                        >
+                          {department.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="m-auto p-3 row-start-5 col-start-1">
@@ -391,3 +375,33 @@ function Employees() {
 }
 
 export default Employees;
+
+
+/*
+                    <input
+                      type="text"
+                      id="employee-department"
+                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                      onClick={() => setOpenDepartments(!openDepartments)}
+                      onChange={handleDepartment}
+                      value={selectedDepartment}
+                    />
+                    {openDepartments && copyDepartments.length > 0 && (
+                      <ul className="mt-2 bg-white-sand border border-gray-200 rounded-md shadow-md max-h-40 overflow-y-scroll  absolute z-10">
+                        {copyDepartments.map((department) => (
+                          <li
+                            key={department._id}
+                            className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                            onClick={() => {
+                              setSelectedDepartment(department.name);
+                              setDepartment(department._id);
+                              setOpenDepartments(false);
+                            }}
+                          >
+                            Department: {department.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+*/
