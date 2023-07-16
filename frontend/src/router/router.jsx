@@ -9,7 +9,8 @@ import Details from "../pages/Details/Details";
 import Departments from "../pages/Departments/Departments";
 import Employees from "../pages/Employees/Employees";
 import Welcome from "../pages/Welcome/Welcome";
-
+import About from "../pages/About/About";
+import Contact from "../pages/Contact/Contact";
 
 
 const checkLogin = () => {
@@ -31,6 +32,8 @@ export const router = createBrowserRouter([
       { path: "/signup", element: <SignUp /> },
       { path: "/login", element: <LogIn />, loader: checkLogin}, //, loader: checkLogin
       { path: "/terms", element: <Terms /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
     ],
   },
   // COMPANY VIEW -> ALREADY LOGED

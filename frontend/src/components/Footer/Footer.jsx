@@ -7,12 +7,12 @@ function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <ul className="flex flex-wrap items-center justify-center text-center space-x-12 mb-6 text-sm font-medium text-white-sand sm:mb-0">
             <li className="ml-4 sm:ml-6">
-              <a href="#" className="mr-4 hover:underline md:mr-6">
+              <a href="/about" className="mr-4 hover:underline md:mr-6">
                 About us
               </a>
             </li>
             <li className="ml-4 sm:ml-6">
-              <a href="#" className="hover:underline">
+              <a href="/contact" className="hover:underline">
                 Contact
               </a>
             </li>

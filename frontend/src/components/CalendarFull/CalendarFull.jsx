@@ -7,7 +7,7 @@ import {
   showScheduleFromDepartmentByShift,
 } from "../../services/schedule.service";
 
-function CalendarFull({ selectedDepartment, shift }) {
+function CalendarFull({ selectedDepartment, shift, estilo }) {
   const [events, setEvents] = useState([]);
 
   const headerToolbar = {
@@ -79,7 +79,7 @@ function CalendarFull({ selectedDepartment, shift }) {
   }, [selectedDepartment, shift]);
 
   return (
-    <div className="col-start-1 w-[1000px] h-[850px] overflow-hidden mb-8">
+    <div className={estilo}>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridWeek"
@@ -92,4 +92,4 @@ function CalendarFull({ selectedDepartment, shift }) {
 }
 
 export default CalendarFull;
-//max-h-screen w-screen m-10 pl-10 pr-10
+//col-start-1 w-[1000px] h-[850px] overflow-hidden mb-8

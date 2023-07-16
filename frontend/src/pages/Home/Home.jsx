@@ -114,7 +114,7 @@ function Home() {
         </div>
       </div>
       <div className="grid grid-cols-1">
-        <CalendarFull selectedDepartment={selectedDepartment} shift={shift}/>
+        <CalendarFull selectedDepartment={selectedDepartment} shift={shift} estilo="col-start-1 w-[1000px] h-[850px] overflow-hidden mb-8"/>
       </div>
     </div>
   );
