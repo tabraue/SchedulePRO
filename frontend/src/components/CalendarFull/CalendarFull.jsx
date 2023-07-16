@@ -35,12 +35,14 @@ function CalendarFull({ selectedDepartment, shift }) {
     }
   };
 
-
   // DATE=AAAA/MM/DD
 
   const showAll = async () => {
-    if(shift !== "All"){
-      const res = await showScheduleFromDepartmentByShift(selectedDepartment, shift);
+    if (shift !== "All") {
+      const res = await showScheduleFromDepartmentByShift(
+        selectedDepartment,
+        shift
+      );
       if (res) {
         const eventsMap = res.map((el) => {
           return {
@@ -53,8 +55,8 @@ function CalendarFull({ selectedDepartment, shift }) {
       } else {
         setEvents("");
       }
-    }else{
-      const res = await showScheduleFromDepartment(selectedDepartment)  // SHIFT => ALL (only)
+    } else {
+      const res = await showScheduleFromDepartment(selectedDepartment); // SHIFT => ALL (only)
       if (res) {
         const eventsMap = res.map((el) => {
           return {
@@ -70,9 +72,6 @@ function CalendarFull({ selectedDepartment, shift }) {
     }
   };
 
-
-
-
   //SCHEDULE FROM ONE DEPARTMENT
 
   useEffect(() => {
@@ -80,17 +79,15 @@ function CalendarFull({ selectedDepartment, shift }) {
   }, [selectedDepartment, shift]);
 
   return (
-  <div className="col-start-1 w-[1000px] h-[850px] overflow-hidden mb-8">
-    <FullCalendar
-      plugins={[dayGridPlugin]}
-      initialView="dayGridWeek"
-      firstDay={1}
-      events={events}
-      headerToolbar={headerToolbar}
-    />
-
-  </div>
-
+    <div className="col-start-1 w-[1000px] h-[850px] overflow-hidden mb-8">
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridWeek"
+        firstDay={1}
+        events={events}
+        headerToolbar={headerToolbar}
+      />
+    </div>
   );
 }
 

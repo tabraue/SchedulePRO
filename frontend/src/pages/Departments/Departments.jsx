@@ -8,6 +8,7 @@ import ListDepartment from "../../components/ListDepartment/ListDepartment";
 import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
 import Alert from "../../components/Alert/Alert";
 import CloseIcon from "../../components/Icon/CloseIcon";
+import { useLocation } from "react-router-dom";
 
 function Departments() {
   const [departments, setDepartments] = useState([]);
@@ -17,11 +18,14 @@ function Departments() {
   const [description, setDescription] = useState("");
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertDenied, setShowAlertDenied] = useState(false);
-  const [refresh, setRefresh] = useState(false)
-  const [flagDelete, setFlagDelete] = useState(false)
+  const [refresh, setRefresh] = useState(false);
+  const [flagDelete, setFlagDelete] = useState(false);
   const searching = "Find a department";
   const title = "Create department";
   const confirm = "Confirm";
+
+  const location = useLocation();
+  const paramValue = location.state?.param;
 
   // BRINGS ALL DEPARTMENTS INFORMATION FROM SERVICE
   const showAll = async () => {
@@ -35,7 +39,9 @@ function Departments() {
     handleCreate();
   }, [refresh, flagDelete]);
 
-
+  useEffect(() => {
+    setShowCreate(paramValue || false);
+  }, [paramValue]);
 
   // TAKES DEPARTMENT NAME
   const handleName = (name) => {
@@ -68,9 +74,9 @@ function Departments() {
   };
 
   const cleanInputs = () => {
-    setName('')
-    setDescription('')
-  }
+    setName("");
+    setDescription("");
+  };
 
   // HANDLE TO CREATE A DEPARTMENT
   const handleCreate = async () => {
@@ -81,11 +87,11 @@ function Departments() {
       );
       if (res) {
         setShowAlertSuccess(!showAlertSuccess);
-        setRefresh(!refresh)
+        setRefresh(!refresh);
         const delay = setTimeout(() => {
           setShowAlertSuccess(!showAlertSuccess);
         }, 1000);
-        cleanInputs()
+        cleanInputs();
         return () => clearTimeout(delay);
       } else {
         setShowAlertDenied(true);
@@ -137,17 +143,6 @@ function Departments() {
             {showCreate && (
               <div className="grid items-center justify-center">
                 <div className=" grid auto-rows justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
-                  {showAlertSuccess && (
-                    <Alert type="green" svg="green" text="Success!" />
-                  )}
-                  {showAlertDenied && (
-                    <Alert
-                      type="red"
-                      svg="red"
-                      text="Please, check details."
-                    />
-                  )}
-
                   <button
                     className="justify-self-end"
                     onClick={handleCloseCreate}
@@ -204,6 +199,12 @@ function Departments() {
                       type="confirm"
                     />
                   </div>
+                  {showAlertSuccess && (
+                    <Alert type="green" svg="green" text="Success!" />
+                  )}
+                  {showAlertDenied && (
+                    <Alert type="red" svg="red" text="Please, check details." />
+                  )}
                 </div>
               </div>
             )}
@@ -213,8 +214,14 @@ function Departments() {
             <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
               {copyDepartments.length > 0 ? (
                 copyDepartments.map((el) => (
-                  <ListDepartment key={el._id} info={el}  setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>
-                ))) : (
+                  <ListDepartment
+                    key={el._id}
+                    info={el}
+                    setFlagDelete={setFlagDelete}
+                    flagDelete={flagDelete}
+                  />
+                ))
+              ) : (
                 <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
                   Department not found
                 </h1>
@@ -222,12 +229,17 @@ function Departments() {
             </div>
           </div>
         </div>
-        ) : (
+      ) : (
         <div className="col-start-2 h-128">
           <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
             {copyDepartments.length > 0 ? (
               copyDepartments.map((el) => (
-                <ListDepartment key={el._id} info={el}  setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>
+                <ListDepartment
+                  key={el._id}
+                  info={el}
+                  setFlagDelete={setFlagDelete}
+                  flagDelete={flagDelete}
+                />
               ))
             ) : (
               <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">

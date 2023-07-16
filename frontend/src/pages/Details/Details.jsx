@@ -144,7 +144,7 @@ function Details() {
                   <ul>
                     {employees.map((el) => (
                       <li
-                        className="text-black list-disc font-normal"
+                        className="text-black list-none font-normal"
                         key={el._id}
                       >
                         {el.name} {el.last_name}

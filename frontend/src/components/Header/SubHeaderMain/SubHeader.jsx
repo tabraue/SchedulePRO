@@ -6,11 +6,11 @@ function SubHeader({ name }) {
 
 
   const handleDepartments = () => {
-    return navigate("/home/departments");
+    return navigate("/home/departments", { state: { param: true } });
   };
 
   const handleEmployees = () => {
-    return navigate("/home/");
+    return navigate("/home/employees", { state: { param: true } });
   };
 
   return (

@@ -7,9 +7,9 @@ import {
 import Alert from "../../components/Alert/Alert";
 import CloseIcon from "../../components/Icon/CloseIcon";
 import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
-import ListEmployee from "../../components/ListEmployee/ListEmployee"
+import ListEmployee from "../../components/ListEmployee/ListEmployee";
 import { showAllDepartments } from "../../services/department.service";
-
+import { useLocation } from "react-router-dom";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -30,10 +30,13 @@ function Employees() {
   const [refresh, setRefresh] = useState(false);
   const [isManagerActive, setIsManagerActive] = useState(false);
   const [isChecked, setisChecked] = useState(false);
-  const [flagDelete, setFlagDelete] = useState(false)
+  const [flagDelete, setFlagDelete] = useState(false);
   const searching = "Find an employee";
   const title = "Add an employee";
   const confirm = "Confirm";
+
+  const location = useLocation();
+  const paramValue = location.state?.param;
 
   //BRINGS ALL EMPLOYEES INFORMATION FROM SERVICE
   const showAll = async () => {
@@ -48,6 +51,10 @@ function Employees() {
   useEffect(() => {
     showAll();
   }, [refresh, flagDelete]);
+
+  useEffect(() => {
+    setShowCreate(paramValue || false);
+  }, [paramValue]);
 
   // TAKES EMPLOYEE NAME
   const handleName = (name) => {
@@ -97,23 +104,21 @@ function Employees() {
 
   // TAKES EMPLOYEE POSITION
   const handlePosition = (position) => {
-    if(position.target.value === ""){
-      setPosition("")
-    }else{
+    if (position.target.value === "") {
+      setPosition("");
+    } else {
       setPosition(position.target.value);
     }
   };
 
-
   const cleanInputs = () => {
-    setName('')
-    setLastName('')
-    setSelectedDepartment('')
-    setEmail('')
-    setPosition('')
-    setisChecked(false)
-  }
-
+    setName("");
+    setLastName("");
+    setSelectedDepartment("");
+    setEmail("");
+    setPosition("");
+    setisChecked(false);
+  };
 
   const handleCreate = async () => {
     if (validateEmail(email) && department !== "") {
@@ -127,13 +132,12 @@ function Employees() {
       );
       if (res) {
         setShowAlertSuccess(!showAlertSuccess);
-        setRefresh(!refresh)
+        setRefresh(!refresh);
         const delay = setTimeout(() => {
           setShowAlertSuccess(false);
         }, 1000);
-        cleanInputs()
+        cleanInputs();
         return () => clearTimeout(delay);
-        
       } else {
         setShowAlertDenied(true);
         const delay = setTimeout(() => {
@@ -197,13 +201,6 @@ function Employees() {
             {showCreate && (
               <div className="grid items-center justify-center h-full overflow-auto">
                 <div className=" grid  auto-rows-max grid-flow-row justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
-                  {showAlertSuccess && (
-                    <Alert type="green" svg="green" text="Success!" />
-                  )}
-                  {showAlertDenied && (
-                    <Alert type="red" svg="red" text="Please, check details." />
-                  )}
-
                   <button
                     className="justify-self-end row-span-1 col-start-1 col-end-3"
                     onClick={handleCloseCreate}
@@ -340,6 +337,12 @@ function Employees() {
                     </div>
                   </div>
                 </div>
+                {showAlertSuccess && (
+                  <Alert type="green" svg="green" text="Success!" />
+                )}
+                {showAlertDenied && (
+                  <Alert type="red" svg="red" text="Please, check details." />
+                )}
               </div>
             )}
           </div>
@@ -348,7 +351,12 @@ function Employees() {
             <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
               {copyEmployees.length > 0 ? (
                 copyEmployees.map((el) => (
-                  <ListEmployee key={el._id} info={el}  setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>
+                  <ListEmployee
+                    key={el._id}
+                    info={el}
+                    setFlagDelete={setFlagDelete}
+                    flagDelete={flagDelete}
+                  />
                 ))
               ) : (
                 <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
@@ -362,7 +370,14 @@ function Employees() {
         <div className="col-start-2 h-128">
           <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
             {copyEmployees.length > 0 ? (
-              copyEmployees.map((el) => <ListEmployee key={el._id} info={el} setFlagDelete={setFlagDelete} flagDelete={flagDelete}/>)
+              copyEmployees.map((el) => (
+                <ListEmployee
+                  key={el._id}
+                  info={el}
+                  setFlagDelete={setFlagDelete}
+                  flagDelete={flagDelete}
+                />
+              ))
             ) : (
               <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
                 Employee not found
