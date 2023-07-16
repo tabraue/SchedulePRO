@@ -48,7 +48,7 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
   return (
     <>
       <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-3 content-center rounded-md bg-white-sand h-full flex-shrink-0 w-9/12">
-        <button className="col-start-1 col-end-1 justify-self-center">
+        <button className="col-span-1 row-span-2 justify-self-center"  onClick={toggleModal}>
           <Profile />
         </button>
         <div className="min-w-0 col-start-2 justify-self-start self-center">

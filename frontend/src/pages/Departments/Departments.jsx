@@ -214,13 +214,14 @@ function Departments() {
 
           <div className="col-start-2 h-128">
             <div className="flex flex-col items-center scroll-auto overflow-y-scroll whitespace-nowrap p-2 h-[100%] m-3">
-              {copyDepartments.length > 0 ? (
+              {copyDepartments && copyDepartments.length > 0 ? (
                 copyDepartments.map((el) => (
                   <ListDepartment
                     key={el._id}
                     info={el}
                     setFlagDelete={setFlagDelete}
                     flagDelete={flagDelete}
+                    showCreate={showCreate}
                   />
                 ))
               ) : (

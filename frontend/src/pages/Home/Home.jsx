@@ -9,7 +9,7 @@ function Home() {
   const [details, setDetails] = useState({});
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [shift, setShift] = useState();
+  const [shift, setShift] = useState('All');
 
   //COMPANY INFO
   const allInfo = async () => {

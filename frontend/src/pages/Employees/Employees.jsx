@@ -110,14 +110,15 @@ function Employees() {
     setisChecked(false);
   };
 
+  console.log(selectedDepartment)
   const handleCreate = async () => {
-    if (validateEmail(email) && department !== "") {
+    if (validateEmail(email) && selectedDepartment !== "") {
       const res = await createEmployee(
         name,
         lastName,
         isManager,
         email,
-        department,
+        selectedDepartment,
         position
       );
       if (res) {
