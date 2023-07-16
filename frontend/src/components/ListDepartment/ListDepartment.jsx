@@ -6,6 +6,10 @@ import ButtonCustom from "../ButtonCustom/ButtonCustom";
 import AlertDelete from "../Alert/AlertDelete/AlertDelete";
 import { deleteDepartment } from "../../services/department.service";
 import CalendarFull from "../CalendarFull/CalendarFull";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import './DatePicker.css'
+import { createSchedule } from "../../services/schedule.service";
 
 function ListDepartment({ info, setFlagDelete, flagDelete }) {
   const [openmodalstate, setModal] = useState(false);
@@ -14,6 +18,9 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
   const [openDelete, setOpenDelete] = useState(false);
   //const [edit, setEdit] = useState(false)   ==> EDITION PENDING
   const [openScheduleModal, setOpenScheduleModal] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState("");
+  const [selectedShift, setSelectedShift] = useState("");
+  const [startDate, setStartDate] = useState(new Date())
 
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -66,10 +73,38 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
   }
  */
 
-  const handleCalendar = (id) => {
+  const handleCalendar = () => {
     setOpenScheduleModal(!openScheduleModal);
-    //alert(id)
   };
+
+  //SELECT EMPLOYEE TO CREATE SCHEDULE
+  const handleSelectedEmployee = (id) => {
+    setSelectedEmployee(id);
+  };
+
+  // AVAILABLES SHIFTS
+  const shifts = {
+    All: "All",
+    Morning: "Morning",
+    Evening: "Evening",
+    Night: "Night",
+    DayOff: "Day Off",
+    Holiday: "Holiday",
+    Medical: "Medical",
+  };
+
+  //SELECT A SHIFT TO CREATE SCHEDULE
+  const handleSelectedShift = (shift) => {
+    setSelectedShift(shift);
+  };
+
+
+  const addToSchedule = async () => {
+     if(selectedEmployee && selectedShift && startDate){
+      const res = await createSchedule(startDate, selectedShift, info._id, selectedEmployee)
+      if(res) console.log('ok')
+    } 
+  }
 
   return (
     <>
@@ -214,21 +249,87 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
             <path d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z" />
           </svg>
         </button>
-    
+
+
         {openScheduleModal && (
           <div className=" w-screen h-screen absolute top-0 left-0 flex inset-0 items-center justify-center z-50">
             <div className="fixed inset-0 backdrop-filter backdrop-blur-sm flex" />
             <div className="fixed">
               <div className="bg-white-sand border border-solid border-blue-calypso p-10 min-w-[400px] min-h-[300px] justify-center rounded-xl">
-              <div className="flex items-center justify-end">
-                  <button onClick={toggleScheduleModal} className="flex items-center">
+                <div className="flex items-center justify-end">
+                  <button
+                    onClick={toggleScheduleModal}
+                    className="flex items-center"
+                  >
                     <CloseIcon />
                   </button>
-                  </div>
-                  <h5 className="text-2xl font-bold tracking-tight text-green-paradiso text-center border-b-2 border-green-paradiso p-3">
-                    {info.name}
-                  </h5>                
-                  
+                </div>
+                <h5 className="text-2xl font-bold tracking-tight text-green-paradiso text-center border-b-2 border-green-paradiso p-3">
+                  {info.name}
+                </h5>
+                <select
+                  onChange={(e) => handleSelectedEmployee(e.target.value)}
+                  value={selectedEmployee}
+                  className="mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                >
+                  <option value="">Select Employee</option>
+                  {employees.map((el) => (
+                    <option
+                      key={el._id}
+                      value={el._id}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                    >
+                      {el.name}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  onChange={(e) => handleSelectedShift(e.target.value)}
+                  value={selectedShift}
+                  className="mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                >
+                  <option value="">Select a Shift</option>
+                  <option
+                    value={shifts.Morning}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-yellow-legend"
+                  >
+                    {shifts.Morning}
+                  </option>
+                  <option
+                    value={shifts.Evening}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-orange-legend"
+                  >
+                    {shifts.Evening}
+                  </option>
+                  <option
+                    value={shifts.Night}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-blue-legend"
+                  >
+                    {shifts.Night}
+                  </option>
+                  <option
+                    value={shifts.DayOff}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-green-legend"
+                  >
+                    {shifts.DayOff}
+                  </option>
+                  <option
+                    value={shifts.Holiday}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-purple-legend"
+                  >
+                    {shifts.Holiday}
+                  </option>
+                  <option
+                    value={shifts.Medical}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-red-legend"
+                  >
+                    {shifts.Medical}
+                  </option>
+                </select>
+
+                <input type="date" className="bg-white-sand" lang="en" selected={startDate} onChange={(date) => setStartDate(date.target.value)}/>
+               {/*  <DatePicker firstDayOfWeek={0} dateFormat={'dd-MM-yyyy'} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                    <button onClick={() => addToSchedule(info._id)}>Add</button>
                 <CalendarFull
                   selectedDepartment={info._id}
                   shift={"All"}
