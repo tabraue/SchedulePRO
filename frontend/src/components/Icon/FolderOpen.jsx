@@ -4,7 +4,7 @@ import Icon from "./Icon";
 function FolderOpen() {
   return (
     <svg
-      className="w-6 h-6 text-green-paradiso"
+      className="w-6 h-6 text-green-paradiso  hover:text-yellow-sandy"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

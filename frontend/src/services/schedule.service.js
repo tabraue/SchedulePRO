@@ -98,7 +98,7 @@ export const updateSchedule = async (scheduleId) => {
 
 export const deleteSchedule = async (scheduleId) => {
     try {
-        const {data} = await api.delete(`/schedule/${scheduleId}`,{},
+        const {data} = await api.delete(`/schedule/${scheduleId}`,
         {
             headers: {
                 token: localStorage.getItem('token')

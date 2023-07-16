@@ -3,11 +3,12 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import "./CalendarFull.css";
 import {
+  deleteSchedule,
   showScheduleFromDepartment,
   showScheduleFromDepartmentByShift,
 } from "../../services/schedule.service";
 
-function CalendarFull({ selectedDepartment, shift, estilo }) {
+function CalendarFull({ selectedDepartment, shift, estilo, refresh, eventClick }) {
   const [events, setEvents] = useState([]);
 
   const headerToolbar = {
@@ -49,6 +50,7 @@ function CalendarFull({ selectedDepartment, shift, estilo }) {
             title: el.employee.name,
             start: el.date.substring(0, 10),
             color: colors(el.shift),
+
           };
         });
         setEvents(eventsMap);
@@ -63,6 +65,9 @@ function CalendarFull({ selectedDepartment, shift, estilo }) {
             title: el.employee.name,
             start: el.date.substring(0, 10),
             color: colors(el.shift),
+            extendedProps  : {
+              scheduleId : el._id
+            }
           };
         });
         setEvents(eventsMap);
@@ -72,11 +77,32 @@ function CalendarFull({ selectedDepartment, shift, estilo }) {
     }
   };
 
+
+/*   const handleClickEvent = async (el) =>{
+   const {extendedProps} = el.event
+   const {scheduleId} = extendedProps
+
+   const res = await deleteSchedule(scheduleId)
+    if(res) {
+      setRefresh(!refresh)
+      //scheduleId.remove()
+      //alert('ok')
+    }
+
+  } */
+
+
+  const handleClickEvent = (el) =>{
+    if(eventClick) eventClick(el)
+
+ 
+  }
+
   //SCHEDULE FROM ONE DEPARTMENT
 
   useEffect(() => {
     showAll();
-  }, [selectedDepartment, shift]);
+  }, [selectedDepartment, shift, refresh]);
 
   return (
     <div className={estilo}>
@@ -86,6 +112,7 @@ function CalendarFull({ selectedDepartment, shift, estilo }) {
         firstDay={1}
         events={events}
         headerToolbar={headerToolbar}
+        eventClick={(el) => handleClickEvent(el)}
       />
     </div>
   );

@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.css";
 import {
   createSchedule,
+  deleteSchedule,
   showScheduleFromEmployee,
 } from "../../services/schedule.service";
 import ErrorAlert from "../Alert/ErrorAlert/ErrorAlert";
@@ -27,6 +28,8 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
   const [startDate, setStartDate] = useState(new Date());
   const [isErrorAlert, setIsErrorAlert] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [isEvent, setIsEvent] = useState(false)
+  const [idFromSchedule, setIdFromSchedule] = useState('')
 
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -105,17 +108,22 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
   };
 
   const cleanInputs = () => {
-    setSelectedEmployee('')
-    setSelectedShift('')
-    setStartDate(new Date())
-  }
+    setSelectedEmployee("");
+    setSelectedShift("");
+    setStartDate(new Date());
+  };
 
   const addToSchedule = async () => {
     if (selectedEmployee && selectedShift && startDate) {
       const check = await showScheduleFromEmployee(selectedEmployee);
       const mapeo = check.map((el) => el.substring(0, 10));
       if (!mapeo.includes(startDate)) {
-        const res = await createSchedule(startDate, selectedShift, info._id, selectedEmployee);
+        const res = await createSchedule(
+          startDate,
+          selectedShift,
+          info._id,
+          selectedEmployee
+        );
         if (res) {
           cleanInputs();
           setRefresh(!refresh);
@@ -125,10 +133,16 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
             setIsErrorAlert(false);
           }, 2000);
           return () => clearTimeout(delay);
-        } 
-      }     
-    }else{
-      setIsErrorAlert(true)
+        }
+      }else {
+        setIsErrorAlert(true);
+        const delay = setTimeout(() => {
+          setIsErrorAlert(false);
+        }, 2000);
+        return () => clearTimeout(delay);
+      }
+    } else {
+      setIsErrorAlert(true);
       const delay = setTimeout(() => {
         setIsErrorAlert(false);
       }, 2000);
@@ -136,14 +150,37 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
     }
   };
 
+  const confirmDelete = async (scheduleId) => {
+    const res = await deleteSchedule(scheduleId)
+    if(res) setIsEvent(!isEvent)
+  }
+
+
+  const handleEventClick = (el) => {
+    setIsEvent(!isEvent)
+    setIdFromSchedule(el.event._def.extendedProps.scheduleId)
+  }
+
+  const yesDeleteSchedule = () =>{
+    confirmDelete(idFromSchedule)
+    setRefresh(!refresh)
+  }
+
+  const notDeleteSchedule = () => {
+    setIsEvent(!isEvent)
+  }
+
 
   return (
     <>
-      <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-3 justify-center rounded-md bg-white-sand h-full w-9/12">
-        <button className="col-span-1 justify-self-center">
+      <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-4 grid-rows-2 justify-center rounded-md bg-white-sand h-full w-9/12">
+        <button
+          onClick={toggleModal}
+          className="col-start-1 row-span-2 justify-self-start ml-5 "
+        >
           <FolderOpen />
         </button>
-        <div className="min-w-0 col-start-2 justify-self-start self-center">
+        <div className="min-w-0 col-start-2 row-span-2 justify-self-start self-center">
           {openmodalstate && (
             <div className=" w-screen h-screen absolute top-0 left-0 flex inset-0 items-center justify-center z-50">
               <div className="fixed inset-0 backdrop-filter backdrop-blur-sm flex" />
@@ -262,13 +299,13 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
             </h5>
           </button>
         </div>
-        <div className="col-start-2 col-end-3">
+        <div className="col-start-3  col-end-4 row-start-1 row-end-3 justify-self-start self-center flex">
           <p className="text-md text-black h-full">{info.description}</p>
         </div>
         <button
           type="button"
           onClick={() => handleCalendar(info._id)}
-          className="col-start-3  inline-flex items-center px-4 py-2 text-lg font-medium text-green-paradiso"
+          className="col-start-4 row-span-2 justify-self-start self-center inline-flex items-center px-4 py-2 text-lg font-medium text-green-paradiso"
         >
           <svg
             className="w-8 h-8 mr-12 ml-12 hover:text-yellow-sandy"
@@ -300,83 +337,91 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
                     {info.name}
                   </h5>
                   {isErrorAlert && <ErrorAlert />}
+                  {isEvent && <AlertDelete  onConfirm={yesDeleteSchedule} onDecline={notDeleteSchedule} />}
                   <div className="flex gap-7 justify-between">
-                  <select
-                    onChange={(e) => handleSelectedEmployee(e.target.value)}
-                    value={selectedEmployee}
-                    className="flex self-center  mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                  >
-                    <option value="">Select Employee</option>
-                    {employees.map((el) => (
+                    <select
+                      onChange={(e) => handleSelectedEmployee(e.target.value)}
+                      value={selectedEmployee}
+                      className="flex self-center  mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                    >
+                      <option value="">Select Employee</option>
+                      {employees.map((el) => (
+                        <option
+                          key={el._id}
+                          value={el._id}
+                          className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                        >
+                          {el.name}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      onChange={(e) => handleSelectedShift(e.target.value)}
+                      value={selectedShift}
+                      className=" flex self-center mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                    >
+                      <option value="">Select a Shift</option>
                       <option
-                        key={el._id}
-                        value={el._id}
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                        value={shifts.Morning}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-yellow-legend"
                       >
-                        {el.name}
+                        {shifts.Morning}
                       </option>
-                    ))}
-                  </select>
-                  <select
-                    onChange={(e) => handleSelectedShift(e.target.value)}
-                    value={selectedShift}
-                    className=" flex self-center mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                  >
-                    <option value="">Select a Shift</option>
-                    <option
-                      value={shifts.Morning}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-yellow-legend"
-                    >
-                      {shifts.Morning}
-                    </option>
-                    <option
-                      value={shifts.Evening}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-orange-legend"
-                    >
-                      {shifts.Evening}
-                    </option>
-                    <option
-                      value={shifts.Night}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-blue-legend"
-                    >
-                      {shifts.Night}
-                    </option>
-                    <option
-                      value={shifts.DayOff}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-green-legend"
-                    >
-                      {shifts.DayOff}
-                    </option>
-                    <option
-                      value={shifts.Holiday}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-purple-legend"
-                    >
-                      {shifts.Holiday}
-                    </option>
-                    <option
-                      value={shifts.Medical}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-red-legend"
-                    >
-                      {shifts.Medical}
-                    </option>
-                  </select>
+                      <option
+                        value={shifts.Evening}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-orange-legend"
+                      >
+                        {shifts.Evening}
+                      </option>
+                      <option
+                        value={shifts.Night}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-blue-legend"
+                      >
+                        {shifts.Night}
+                      </option>
+                      <option
+                        value={shifts.DayOff}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-green-legend"
+                      >
+                        {shifts.DayOff}
+                      </option>
+                      <option
+                        value={shifts.Holiday}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-purple-legend"
+                      >
+                        {shifts.Holiday}
+                      </option>
+                      <option
+                        value={shifts.Medical}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-red-legend"
+                      >
+                        {shifts.Medical}
+                      </option>
+                    </select>
 
-                  <input
-                    type="date"
-                    className="bg-white-sand flex self-center mt-4"
-                    lang="en"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date.target.value)}
-                  />
-                  {/*  <DatePicker firstDayOfWeek={0} dateFormat={'dd-MM-yyyy'} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                  <div className="flex self-center mt-5">
-                  <ButtonCustom onClick={() => addToSchedule(info._id)} text="Add" type='blue'/>
-                  </div>
+                    <input
+                      type="date"
+                      className="bg-white-sand flex self-center mt-4"
+                      lang="en"
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date.target.value)}
+                    />
+                    {/*  <DatePicker firstDayOfWeek={0} dateFormat={'dd-MM-yyyy'} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                    <div className="flex self-center mt-5">
+                      <ButtonCustom
+                        onClick={() => addToSchedule(info._id)}
+                        text="Add"
+                        type="blue"
+                      />
+                    </div>
                   </div>
                   <CalendarFull
                     selectedDepartment={info._id}
                     shift={"All"}
                     estilo="col-start-1 w-[800px] h-[650px] overflow-hidden mb-8 mt-5"
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                    eventClick={handleEventClick}
                   />
                 </div>
               </div>
