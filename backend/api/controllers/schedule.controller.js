@@ -1,4 +1,5 @@
 const DepartmentModel = require("../models/department.model")
+const EmployeeModel = require("../models/employee.model")
 const ScheduleModel = require("../models/schedule.model")
 
 
@@ -79,6 +80,24 @@ const getOneScheduleByShift = async (req, res) =>{
 }
 
 
+const getScheduleDatesByEmployee = async (req, res) =>{
+    try {
+        const companyId = res.locals.company._id
+       /*  const department = await DepartmentModel.findOne({_id: req.params.departmentId, company: companyId})
+        if(!department)
+            return res.status(400).send('>> There is no department')  */
+        const schedule = await ScheduleModel.find({employee: req.params.employeeId})
+        if(!schedule)
+            return res.status(400).send('>> There is no schedule for this employee') 
+        const dates = schedule.map((el) => el.date)
+        return res.status(200).json(dates)       //ONLY DATES TO CHECK (AS VALIDATOR)
+    } catch (error) {
+        console.error(error)
+
+        return res.status(500).send('>> Error')
+    }
+}
+
 
 const updateOneSchedule = async (req, res) => {
     try {
@@ -116,5 +135,6 @@ module.exports = {
     getOneSchedule,
     updateOneSchedule,
     deleteOneSchedule,
-    getOneScheduleByShift
+    getOneScheduleByShift,
+    getScheduleDatesByEmployee
 }

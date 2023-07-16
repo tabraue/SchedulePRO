@@ -9,7 +9,7 @@ import CalendarFull from "../CalendarFull/CalendarFull";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './DatePicker.css'
-import { createSchedule } from "../../services/schedule.service";
+import { createSchedule, showScheduleFromEmployee } from "../../services/schedule.service";
 
 function ListDepartment({ info, setFlagDelete, flagDelete }) {
   const [openmodalstate, setModal] = useState(false);
@@ -88,7 +88,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
     Morning: "Morning",
     Evening: "Evening",
     Night: "Night",
-    DayOff: "Day Off",
+    DayOff: "Off",
     Holiday: "Holiday",
     Medical: "Medical",
   };
@@ -99,10 +99,17 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
   };
 
 
+
   const addToSchedule = async () => {
      if(selectedEmployee && selectedShift && startDate){
-      const res = await createSchedule(startDate, selectedShift, info._id, selectedEmployee)
-      if(res) console.log('ok')
+      const check = await showScheduleFromEmployee(selectedEmployee)
+        const mapeo = check.map((el) => el.substring(0,10))
+        if(!mapeo.includes(startDate)){
+          const res = await createSchedule(startDate, selectedShift, info._id, selectedEmployee)
+          if(res) console.log('ok')
+        }else{
+          console.log('no')
+        }
     } 
   }
 
