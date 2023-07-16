@@ -8,8 +8,12 @@ import { deleteDepartment } from "../../services/department.service";
 import CalendarFull from "../CalendarFull/CalendarFull";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import './DatePicker.css'
-import { createSchedule, showScheduleFromEmployee } from "../../services/schedule.service";
+import "./DatePicker.css";
+import {
+  createSchedule,
+  showScheduleFromEmployee,
+} from "../../services/schedule.service";
+import ErrorAlert from "../Alert/ErrorAlert/ErrorAlert";
 
 function ListDepartment({ info, setFlagDelete, flagDelete }) {
   const [openmodalstate, setModal] = useState(false);
@@ -20,7 +24,9 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
   const [openScheduleModal, setOpenScheduleModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [selectedShift, setSelectedShift] = useState("");
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date());
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -98,20 +104,38 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
     setSelectedShift(shift);
   };
 
-
+  const cleanInputs = () => {
+    setSelectedEmployee('')
+    setSelectedShift('')
+    setStartDate(new Date())
+  }
 
   const addToSchedule = async () => {
-     if(selectedEmployee && selectedShift && startDate){
-      const check = await showScheduleFromEmployee(selectedEmployee)
-        const mapeo = check.map((el) => el.substring(0,10))
-        if(!mapeo.includes(startDate)){
-          const res = await createSchedule(startDate, selectedShift, info._id, selectedEmployee)
-          if(res) console.log('ok')
-        }else{
-          console.log('no')
-        }
-    } 
-  }
+    if (selectedEmployee && selectedShift && startDate) {
+      const check = await showScheduleFromEmployee(selectedEmployee);
+      const mapeo = check.map((el) => el.substring(0, 10));
+      if (!mapeo.includes(startDate)) {
+        const res = await createSchedule(startDate, selectedShift, info._id, selectedEmployee);
+        if (res) {
+          cleanInputs();
+          setRefresh(!refresh);
+        } else {
+          setIsErrorAlert(true);
+          const delay = setTimeout(() => {
+            setIsErrorAlert(false);
+          }, 2000);
+          return () => clearTimeout(delay);
+        } 
+      }     
+    }else{
+      setIsErrorAlert(true)
+      const delay = setTimeout(() => {
+        setIsErrorAlert(false);
+      }, 2000);
+      return () => clearTimeout(delay);
+    }
+  };
+
 
   return (
     <>
@@ -257,94 +281,107 @@ function ListDepartment({ info, setFlagDelete, flagDelete }) {
           </svg>
         </button>
 
-
         {openScheduleModal && (
-          <div className=" w-screen h-screen absolute top-0 left-0 flex inset-0 items-center justify-center z-50">
-            <div className="fixed inset-0 backdrop-filter backdrop-blur-sm flex" />
-            <div className="fixed">
-              <div className="bg-white-sand border border-solid border-blue-calypso p-10 min-w-[400px] min-h-[300px] justify-center rounded-xl">
-                <div className="flex items-center justify-end">
-                  <button
-                    onClick={toggleScheduleModal}
-                    className="flex items-center"
-                  >
-                    <CloseIcon />
-                  </button>
-                </div>
-                <h5 className="text-2xl font-bold tracking-tight text-green-paradiso text-center border-b-2 border-green-paradiso p-3">
-                  {info.name}
-                </h5>
-                <select
-                  onChange={(e) => handleSelectedEmployee(e.target.value)}
-                  value={selectedEmployee}
-                  className="mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                >
-                  <option value="">Select Employee</option>
-                  {employees.map((el) => (
-                    <option
-                      key={el._id}
-                      value={el._id}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+          <>
+            <div className=" w-screen h-screen absolute top-0 left-0 flex inset-0 items-center justify-center z-50">
+              <div className="fixed inset-0 backdrop-filter backdrop-blur-sm flex" />
+              <div className="fixed">
+                <div className="bg-white-sand border border-solid border-blue-calypso p-10 min-w-[400px] min-h-[300px] justify-center rounded-xl">
+                  <div className="flex items-center justify-end">
+                    <button
+                      onClick={toggleScheduleModal}
+                      className="flex items-center"
                     >
-                      {el.name}
-                    </option>
-                  ))}
-                </select>
-                <select
-                  onChange={(e) => handleSelectedShift(e.target.value)}
-                  value={selectedShift}
-                  className="mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                >
-                  <option value="">Select a Shift</option>
-                  <option
-                    value={shifts.Morning}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-yellow-legend"
-                  >
-                    {shifts.Morning}
-                  </option>
-                  <option
-                    value={shifts.Evening}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-orange-legend"
-                  >
-                    {shifts.Evening}
-                  </option>
-                  <option
-                    value={shifts.Night}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-blue-legend"
-                  >
-                    {shifts.Night}
-                  </option>
-                  <option
-                    value={shifts.DayOff}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-green-legend"
-                  >
-                    {shifts.DayOff}
-                  </option>
-                  <option
-                    value={shifts.Holiday}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-purple-legend"
-                  >
-                    {shifts.Holiday}
-                  </option>
-                  <option
-                    value={shifts.Medical}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-red-legend"
-                  >
-                    {shifts.Medical}
-                  </option>
-                </select>
+                      <CloseIcon />
+                    </button>
+                  </div>
 
-                <input type="date" className="bg-white-sand" lang="en" selected={startDate} onChange={(date) => setStartDate(date.target.value)}/>
-               {/*  <DatePicker firstDayOfWeek={0} dateFormat={'dd-MM-yyyy'} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                    <button onClick={() => addToSchedule(info._id)}>Add</button>
-                <CalendarFull
-                  selectedDepartment={info._id}
-                  shift={"All"}
-                  estilo="col-start-1 w-[800px] h-[650px] overflow-hidden mb-8 mt-5"
-                />
+                  <h5 className="text-2xl font-bold tracking-tight text-green-paradiso text-center border-b-2 border-green-paradiso p-3">
+                    {info.name}
+                  </h5>
+                  {isErrorAlert && <ErrorAlert />}
+                  <div className="flex gap-7 justify-between">
+                  <select
+                    onChange={(e) => handleSelectedEmployee(e.target.value)}
+                    value={selectedEmployee}
+                    className="flex self-center  mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                  >
+                    <option value="">Select Employee</option>
+                    {employees.map((el) => (
+                      <option
+                        key={el._id}
+                        value={el._id}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                      >
+                        {el.name}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    onChange={(e) => handleSelectedShift(e.target.value)}
+                    value={selectedShift}
+                    className=" flex self-center mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                  >
+                    <option value="">Select a Shift</option>
+                    <option
+                      value={shifts.Morning}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-yellow-legend"
+                    >
+                      {shifts.Morning}
+                    </option>
+                    <option
+                      value={shifts.Evening}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-orange-legend"
+                    >
+                      {shifts.Evening}
+                    </option>
+                    <option
+                      value={shifts.Night}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-blue-legend"
+                    >
+                      {shifts.Night}
+                    </option>
+                    <option
+                      value={shifts.DayOff}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-green-legend"
+                    >
+                      {shifts.DayOff}
+                    </option>
+                    <option
+                      value={shifts.Holiday}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-purple-legend"
+                    >
+                      {shifts.Holiday}
+                    </option>
+                    <option
+                      value={shifts.Medical}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 bg-red-legend"
+                    >
+                      {shifts.Medical}
+                    </option>
+                  </select>
+
+                  <input
+                    type="date"
+                    className="bg-white-sand flex self-center mt-4"
+                    lang="en"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date.target.value)}
+                  />
+                  {/*  <DatePicker firstDayOfWeek={0} dateFormat={'dd-MM-yyyy'} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                  <div className="flex self-center mt-5">
+                  <ButtonCustom onClick={() => addToSchedule(info._id)} text="Add" type='blue'/>
+                  </div>
+                  </div>
+                  <CalendarFull
+                    selectedDepartment={info._id}
+                    shift={"All"}
+                    estilo="col-start-1 w-[800px] h-[650px] overflow-hidden mb-8 mt-5"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </>
