@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   createSchedule,
   deleteSchedule,
+  showScheduleFromDepartment,
   showScheduleFromEmployee,
 } from "../../services/schedule.service";
 import ErrorAlert from "../Alert/ErrorAlert/ErrorAlert";
@@ -30,6 +31,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
   const [refresh, setRefresh] = useState(false);
   const [isEvent, setIsEvent] = useState(false)
   const [idFromSchedule, setIdFromSchedule] = useState('')
+  const [schedule, setSchedule] = useState()
   const dateinputRef = useRef()
 
 
@@ -171,6 +173,19 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
   const notDeleteSchedule = () => {
     setIsEvent(!isEvent)
   }
+
+   const employeeSchedule = async () => {
+    const res = await showScheduleFromDepartment(info._id)
+    if(res) {
+      const dates = res.sort()
+      setSchedule(dates)
+    }
+  }
+
+  useEffect(() => {
+    employeeSchedule()
+  }, [])
+
 
 
   return (

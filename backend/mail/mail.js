@@ -25,4 +25,7 @@ const mail = async (employee, random) => {
     //, info.messageId
 }
 
+
+
+
 module.exports = {mail}

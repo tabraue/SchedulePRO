@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "../Icon/CloseIcon";
 import ButtonCustom from "../ButtonCustom/ButtonCustom";
 import AlertDelete from "../Alert/AlertDelete/AlertDelete";
 import { deleteEmployee } from "../../services/employee.service";
-
 import Profile from "../Icon/Profile";
+
 
 function ListEmployee({ info, setFlagDelete, flagDelete }) {
   const [openmodalstate, setModal] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [edit, setEdit] = useState(false);
+  //const [schedule, setSchedule] = useState()
 
 
 
@@ -42,8 +43,21 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
 
   const handleEdition = () => {
     setEdit(!edit);
-  };
+  }; 
 
+/*   const employeeSchedule = async () => {
+    const res = await showScheduleFromEmployee(info._id)
+    if(res) {
+      const dates = res.sort()
+      setSchedule(dates)
+    }
+  }
+
+  useEffect(() => {
+    employeeSchedule()
+  }, [])
+ */
+//{schedule[0]}
 
   return (
     <>
@@ -137,7 +151,7 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
           <p className="text-md text-black h-full">{info.department.name}</p>
         </div>
         <div className="col-start-3 row-start-1 justify-self-center self-end">
-          <p>hola</p>
+          {/* <p>fecha aqui</p> */}
         </div>
       </div>
     </>
