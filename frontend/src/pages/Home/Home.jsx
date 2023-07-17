@@ -9,6 +9,7 @@ function Home() {
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [shift, setShift] = useState('All');
+  const [choosenShift, setChoosenShift] = useState(false)
 
   //COMPANY INFO
   const allInfo = async () => {
@@ -58,7 +59,7 @@ function Home() {
           <select
             onChange={(e) => handleSelectedDepartment(e.target.value)}
             value={selectedDepartment}
-            className="justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+            className="justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-72"
           >
             <option value="">Select Department</option>
             {departments.map((el) => (
@@ -76,38 +77,38 @@ function Home() {
         <div className="flex flex-row justify-end">
           <button 
             onClick={() => handleShift(shifts.All)}
-          className="border border-solid border-blue-glacier w-16 m-2 py-1 px-2  text-center text-sm rounded-md hover:ring-2 ring-blue-glacier">
+          className="border border-solid border-blue-glacier w-20 m-2 py-1 px-2  text-center text-sm rounded-md hover:ring-2 ring-blue-glacier">
             {shifts.All}
           </button>
           <button
             onClick={() => handleShift(shifts.Morning)}
-            className="bg-yellow-legend m-2 py-1 px-2 w-16 text-center text-sm rounded-md hover:ring-2 ring-yellow-legend"
+            className="bg-yellow-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-yellow-legend"
           >
             {shifts.Morning}
           </button>
           <button 
             onClick={() => handleShift(shifts.Evening)}
-          className="bg-orange-legend m-2 py-1 px-2 w-16 text-center text-sm rounded-md hover:ring-2 ring-orange-legend">
+          className="bg-orange-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-orange-legend">
             {shifts.Evening}
           </button>
           <button
             onClick={() => handleShift(shifts.Night)}
-          className="bg-blue-legend m-2 py-1 px-2 w-16 text-center text-sm rounded-md hover:ring-2 ring-blue-legend">
+          className="bg-blue-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-blue-legend">
             {shifts.Night}
           </button>
           <button
             onClick={() => handleShift(shifts.DayOff)}
-          className="bg-green-legend m-2 py-1 px-2 w-16 text-center text-sm rounded-md hover:ring-2 ring-green-legend">
+          className="bg-green-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-green-legend">
             {shifts.DayOff}
           </button>
           <button
             onClick={() => handleShift(shifts.Holiday)}
-          className="bg-purple-legend m-2 py-1 px-2 w-16 text-center text-sm rounded-md hover:ring-2 ring-purple-legend">
+          className="bg-purple-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-purple-legend">
             {shifts.Holiday}
           </button>
           <button
             onClick={() => handleShift(shifts.Medical)}
-          className="bg-red-legend m-2 py-1 px-2 w-16 text-center text-sm rounded-md hover:ring-2 ring-red-legend">
+          className="bg-red-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-red-legend">
             {shifts.Medical}
           </button>
         </div>

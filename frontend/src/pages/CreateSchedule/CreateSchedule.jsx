@@ -6,7 +6,6 @@ import { showEmployeesByDepartment } from "../../services/employee.service";
 function CreateSchedule() {
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [shift, setShift] = useState();

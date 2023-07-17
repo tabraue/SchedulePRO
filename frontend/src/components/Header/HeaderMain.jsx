@@ -24,7 +24,7 @@ function HeaderMain() {
 
   const employeesIcon = (
     <svg
-      className="w-12 h-12 text-white-sand cursor-pointer"
+      className="w-12 h-12 text-white-sand cursor-pointer flex justify-center mt-2"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
