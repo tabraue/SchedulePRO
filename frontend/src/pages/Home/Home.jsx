@@ -9,7 +9,9 @@ function Home() {
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [shift, setShift] = useState('All');
-  const [choosenShift, setChoosenShift] = useState(false)
+  const [choosenShift, setChoosenShift] = useState('All')
+  const [chooseAll, setChooseAll] = useState(false)
+
 
   //COMPANY INFO
   const allInfo = async () => {
@@ -46,6 +48,7 @@ function Home() {
   //SHOWS ALL SHIFTS
   const handleShift = (shift) => {
     setShift(shift)
+    setChooseAll(!chooseAll)
   };
 
   return (
@@ -76,39 +79,60 @@ function Home() {
 
         <div className="flex flex-row justify-end">
           <button 
-            onClick={() => handleShift(shifts.All)}
-          className="border border-solid border-blue-glacier w-20 m-2 py-1 px-2  text-center text-sm rounded-md hover:ring-2 ring-blue-glacier">
+            onClick={() => {
+              handleShift(shifts.All)
+              setChoosenShift(shifts.All)
+            }}
+            className={`border border-solid border-blue-glacier w-20 m-2 py-1 px-2  text-center text-sm rounded-md hover:ring-2 ring-blue-glacier ${(choosenShift === shifts.All) && ' ring-offset-2 ring-4 '}`}>
             {shifts.All}
           </button>
           <button
-            onClick={() => handleShift(shifts.Morning)}
-            className="bg-yellow-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-yellow-legend"
+            onClick={() => {
+              handleShift(shifts.Morning)
+              setChoosenShift(shifts.Morning)
+            }}
+            className={`bg-yellow-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-yellow-legend ${(choosenShift === shifts.Morning) && ' ring-offset-2 ring-4 '}`}
           >
             {shifts.Morning}
           </button>
           <button 
-            onClick={() => handleShift(shifts.Evening)}
-          className="bg-orange-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-orange-legend">
+            onClick={() => {
+              handleShift(shifts.Evening)
+              setChoosenShift(shifts.Evening)
+            }}
+            className={`bg-orange-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-orange-legend ${(choosenShift === shifts.Evening) && ' ring-offset-2 ring-4 '}`}>
             {shifts.Evening}
           </button>
           <button
-            onClick={() => handleShift(shifts.Night)}
-          className="bg-blue-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-blue-legend">
+            onClick={() => {
+              handleShift(shifts.Night)
+              setChoosenShift(shifts.Night)
+            }}
+          className={`bg-blue-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-blue-legend ${(choosenShift === shifts.Night) && ' ring-offset-2 ring-4 '}`}>
             {shifts.Night}
           </button>
           <button
-            onClick={() => handleShift(shifts.DayOff)}
-          className="bg-green-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-green-legend">
+            onClick={() => {
+              handleShift(shifts.DayOff)
+              setChoosenShift(shifts.DayOff)
+            }}
+          className={`bg-green-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-green-legend ${(choosenShift === shifts.DayOff) && ' ring-offset-2 ring-4 '}`}>
             {shifts.DayOff}
           </button>
           <button
-            onClick={() => handleShift(shifts.Holiday)}
-          className="bg-purple-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-purple-legend">
+            onClick={() => {
+              handleShift(shifts.Holiday)
+              setChoosenShift(shifts.Holiday)
+            }}
+          className={`bg-purple-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-purple-legend ${(choosenShift === shifts.Holiday) && ' ring-offset-2 ring-4 '}`}>
             {shifts.Holiday}
           </button>
           <button
-            onClick={() => handleShift(shifts.Medical)}
-          className="bg-red-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-red-legend">
+            onClick={() => {
+              handleShift(shifts.Medical)
+              setChoosenShift(shifts.Medical)
+            }}
+          className={`bg-red-legend m-2 py-1 px-2 w-20 text-center text-sm rounded-md hover:ring-2 ring-red-legend ${(choosenShift === shifts.Medical) && ' ring-offset-2 ring-4 '}`}>
             {shifts.Medical}
           </button>
         </div>
