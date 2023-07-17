@@ -1,12 +1,11 @@
 import { api } from "./api.js";
 
-export const sendEmail = async (employee, schedule) => {
-    console.log(schedule)
+export const sendEmail = async (emailAddresses, shifts) => {
+
     try {
         await api.post(`/email`, {
-            employee: employee.email,
-            shift: schedule.shift.toString(),
-            date: schedule.date
+            emails: emailAddresses,
+            sh: shifts,
         },{
             headers: {
                 token: localStorage.getItem('token')
