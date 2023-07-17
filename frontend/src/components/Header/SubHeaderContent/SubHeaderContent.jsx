@@ -41,11 +41,14 @@ function SubHeaderContent({placeholder, employee, onChange, onClick}) {
           </svg>
         </button> */}
 
-        <div className="inline-flex items-center text-lg font-medium text-green-paradiso bg-white-sand border border-gray-200  hover:text-green-paradiso focus:z-10 focus:ring-2 focus:ring-green-paradiso focus:text-green-paradiso rounded-l-md">
+        <div className="inline-flex items-center text-lg font-medium text-green-paradiso bg-white-sand border  hover:text-green-paradiso focus:z-10 focus:ring-2 focus:ring-green-paradiso focus:text-green-paradiso rounded-l-md">
+          <svg className="w-4 h-4 text-green-paradiso ml-3 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+          </svg>
           <input
             type="search"
             id="default-search"
-            className="rounded-md inline-flex items-center px-4 py-2 text-lg font-medium text-green-paradiso bg-white-sand border-t border-b border-gray-200 hover:bg-gray-200 hover:text-green-paradiso focus:z-10 focus:ring-2 focus:ring-green-paradiso focus:text-green-paradiso"
+            className="rounded-md inline-flex items-center px-4 py-2 text-lg font-medium text-green-paradiso bg-white-sand border-t border-none hover:bg-gray-200 hover:text-green-paradiso focus:z-10 focus:ring-2 focus:ring-green-paradiso focus:text-green-paradiso"
             onChange={handleSearch}
             placeholder={placeholder}
             required

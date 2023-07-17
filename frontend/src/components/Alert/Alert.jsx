@@ -5,7 +5,7 @@ function Alert({ text, type, svg }) {
   //             if correct green-bay
 
   const styleGenerator = () =>{
-    let style = 'flex items-center p-4 mb-4 text-sm text-black border-solid border-2 rounded-lg bg-white-sand'
+    let style = 'flex items-center p-4 mb-4 text-sm text-black border-solid border-2 rounded-md bg-white-sand'
     if (type === 'red') style += ' border-red-chestnut'
     if (type === 'green') style += ' border-green-bay'
 

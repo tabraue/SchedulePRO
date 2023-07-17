@@ -12,6 +12,7 @@
 .fc .fc-button-primary:not(:disabled):active,
 .fc .fc-button:disabled{
     background-color: #357b8d; 
+    border-radius: 6px;
 }
 
 /*.fc 

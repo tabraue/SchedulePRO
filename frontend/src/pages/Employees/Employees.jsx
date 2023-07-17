@@ -190,10 +190,10 @@ function Employees() {
 
       {showCreate ? (
         <div className="grid grid-cols-2 ">
-          <div className="bg-blue-glacier col-start-1 rounded-lg grid h-128 m-10 ">
+          <div className="bg-blue-glacier col-start-1 rounded-md grid h-128 m-10 ">
             {showCreate && (
               <div className="grid items-center justify-center h-full overflow-auto">
-                <div className=" grid  auto-rows-max grid-flow-row justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
+                <div className=" grid  auto-rows-max grid-flow-row justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-md bg-white-sand">
                   <button
                     className="justify-self-end row-span-1 col-start-1 col-end-3"
                     onClick={handleCloseCreate}

@@ -189,7 +189,10 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
       );
 
       const emailAddresses = employees.map((emp) => emp.email).join(',');
-        await sendEmail(emailAddresses, shifts);
+      const res=  await sendEmail(emailAddresses, shifts);
+      if(res){
+        
+      }
     }
     console.log("aquí");
   };
@@ -214,7 +217,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                   <CloseIcon />
                 </button>
               </div>
-              <div className="bg-blue-calypso p-6 rounded-sm shadow-lg flex flex-col items-center justify-center">
+              <div className="bg-blue-calypso p-6 rounded-md shadow-lg flex flex-col items-center justify-center">
                 <div className="bg-white-sand min-w-[600px] min-h-[500px] flex flex-col justify-center px-6 rounded-xl">
                   <h5 className="text-2xl font-bold tracking-tight text-green-paradiso text-center border-b-2 border-green-paradiso p-3">
                     {info.name}
@@ -383,7 +386,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                   <select
                     onChange={(e) => handleSelectedEmployee(e.target.value)}
                     value={selectedEmployee}
-                    className="flex self-center  mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                    className="flex self-center  mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
                   >
                     <option value="">Select Employee</option>
                     {employees.map((el) => (
@@ -399,7 +402,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                   <select
                     onChange={(e) => handleSelectedShift(e.target.value)}
                     value={selectedShift}
-                    className=" flex self-center mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+                    className=" flex self-center mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
                   >
                     <option value="">Select a Shift</option>
                     <option

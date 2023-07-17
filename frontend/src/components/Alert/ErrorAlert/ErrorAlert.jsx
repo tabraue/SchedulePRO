@@ -6,7 +6,7 @@ function ErrorAlert() {
     <div
     id="alert-additional-content
       "
-    className="p-2 text-red-chestnut border border-red-300 rounded-lg bg-red-50"
+    className="p-2 text-red-chestnut border border-red-300 rounded-md bg-red-50"
     role="alert"
   >
     <div className="flex items-center">

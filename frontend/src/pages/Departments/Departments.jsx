@@ -144,10 +144,10 @@ function Departments() {
 
       {showCreate ? (
         <div className="grid grid-cols-2 ">
-          <div className="bg-blue-glacier col-start-1 rounded-lg m-10 grid h-128">
+          <div className="bg-blue-glacier col-start-1 rounded-md m-10 grid h-128">
             {showCreate && (
               <div className="grid items-center justify-center">
-                <div className=" grid auto-rows justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-lg bg-white-sand">
+                <div className=" grid auto-rows justify-items-stretch place-content-center content-center items-center border-solid border-2 border-blue-calypso p-6 rounded-md bg-white-sand">
                   <button
                     className="justify-self-end"
                     onClick={handleCloseCreate}

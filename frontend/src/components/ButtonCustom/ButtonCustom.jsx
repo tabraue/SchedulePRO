@@ -13,7 +13,7 @@ function ButtonCustom({ onClick, text, type, navigate }) {
 
   const generateStyles = () => {
     let styles =
-      "hover:text-black focus:ring-4 focus:outline-none font-lg rounded-sm text-base px-6 py-3 mr-2 mb-2";
+      "hover:text-black focus:ring-4 focus:outline-none font-lg rounded-md text-base px-6 py-3 mr-2 mb-2";
 
     switch (type) {
       case "yellow":

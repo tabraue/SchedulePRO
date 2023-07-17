@@ -75,7 +75,7 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
                     <CloseIcon />
                   </button>
                 </div>
-                <div className="bg-blue-calypso p-6 rounded-sm shadow-lg flex flex-col items-center justify-center">
+                <div className="bg-blue-calypso p-6 rounded-md shadow-lg flex flex-col items-center justify-center">
 
                   <div className="bg-white-sand min-w-[600px] min-h-[500px] flex flex-col justify-center px-6 rounded-xl">
                     <h3 className="text-2xl font-bold tracking-tight text-green-paradiso text-center border-b-2 border-green-paradiso p-3">

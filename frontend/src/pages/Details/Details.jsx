@@ -33,8 +33,8 @@ function Details() {
 
   return (
     <div className="min-w-screen min-h-screen flex items-center justify-center">
-      <div className="bg-blue-calypso p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
-        <div className="bg-white-sand min-w-[800px] min-h-[600px] flex flex-col justify-center px-6 rounded-xl">
+      <div className="bg-blue-calypso p-6 rounded-md shadow-lg flex flex-col items-center justify-center">
+        <div className="bg-white-sand min-w-[800px] min-h-[600px] flex flex-col justify-center px-6 rounded-md">
           <h5 className="text-2xl font-bold tracking-tight text-green-paradiso text-center ">
             {details.name}
           </h5>

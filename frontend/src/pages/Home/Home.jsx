@@ -3,7 +3,6 @@ import { companyDetails } from "../../services/company.service";
 import SubHeader from "../../components/Header/SubHeaderMain/SubHeader";
 import CalendarFull from "../../components/CalendarFull/CalendarFull";
 import { showAllDepartments } from "../../services/department.service";
-import { showScheduleFromDepartment } from "../../services/schedule.service";
 
 function Home() {
   const [details, setDetails] = useState({});
@@ -59,7 +58,7 @@ function Home() {
           <select
             onChange={(e) => handleSelectedDepartment(e.target.value)}
             value={selectedDepartment}
-            className="justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
+            className="justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
           >
             <option value="">Select Department</option>
             {departments.map((el) => (

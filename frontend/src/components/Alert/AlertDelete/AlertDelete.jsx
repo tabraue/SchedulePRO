@@ -15,7 +15,7 @@ function AlertDelete({ text, onConfirm, onDecline }) {
     <div
       id="alert-additional-content
         "
-      className="p-4 mb-4 text-red-chestnut border border-red-300 rounded-lg bg-red-50"
+      className="p-4 mb-4 text-red-chestnut border border-red-300 rounded-md bg-red-50"
       role="alert"
     >
       <div className="flex items-center">
@@ -37,14 +37,14 @@ function AlertDelete({ text, onConfirm, onDecline }) {
       <div className="flex">
         <button
           type="button"
-          className="text-white bg-red-chestnut hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center"
+          className="text-white bg-red-chestnut hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-md text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center"
             onClick={onClickYes}
         >
           YES
         </button>
         <button
           type="button"
-          className="text-red-800 bg-transparent border border-red-chestnut hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          className="text-red-800 bg-transparent border border-red-chestnut hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-md text-xs px-3 py-1.5 text-center"
           data-dismiss-target="#alert-additional-content
             "
           aria-label="Close"
