@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   createDepartment,
   showAllDepartments,
@@ -21,6 +21,8 @@ function Departments() {
   const [showAlertDenied, setShowAlertDenied] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [flagDelete, setFlagDelete] = useState(false);
+  const namedepRef = useRef()
+  const descdepRef = useRef()
   const searching = "Find a department";
   const title = "Create department";
   const confirm = "Confirm";
@@ -78,7 +80,9 @@ function Departments() {
 
   const cleanInputs = () => {
     setName("");
+    namedepRef.current.value= ''
     setDescription("");
+    descdepRef.current.value =''
   };
 
   // HANDLE TO CREATE A DEPARTMENT
@@ -169,6 +173,7 @@ function Departments() {
                         id="department-name"
                         className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso  w-64"
                         onChange={handleName}
+                        ref={namedepRef}
                       />
                     </div>
                   </div>
@@ -187,6 +192,7 @@ function Departments() {
                           id="description"
                           className="h-20 bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-64 resize-none"
                           onChange={handleDescription}
+                          ref={descdepRef}
                         ></textarea>
                       </div>
                     </div>

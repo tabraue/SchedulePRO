@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FolderOpen from "../Icon/FolderOpen";
 import CloseIcon from "../Icon/CloseIcon";
 import { showEmployeesByDepartment } from "../../services/employee.service";
@@ -30,6 +30,8 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
   const [refresh, setRefresh] = useState(false);
   const [isEvent, setIsEvent] = useState(false)
   const [idFromSchedule, setIdFromSchedule] = useState('')
+  const dateinputRef = useRef()
+
 
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -38,7 +40,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
 
   useEffect(() => {
     showEmployees(info._id);
-  }, [refresh]);
+  }, [refresh, isEvent]);
 
   const toggleModal = () => {
     setModal(!openmodalstate);
@@ -62,7 +64,6 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
 
   const departmentDeletion = async (id) => {
     await deleteDepartment(id);
-    setFlagDelete(!flagDelete);
   };
 
   //IF DELETE BUTTON CLICKED -> ALERT -> IF (YES) YOU WANT TO DELETE DEPARTMENT:
@@ -112,6 +113,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
     setSelectedEmployee("");
     setSelectedShift("");
     setStartDate('');
+    dateinputRef.current.value = ''
   };
 
   const addToSchedule = async () => {
@@ -406,6 +408,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                       lang="en"
                       selected={startDate}
                       onChange={(date) => setStartDate(date.target.value)}
+                      ref={dateinputRef}
                     />
                     <div className="flex self-center mt-5">
                       <ButtonCustom
