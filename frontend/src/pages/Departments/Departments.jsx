@@ -9,6 +9,7 @@ import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
 import Alert from "../../components/Alert/Alert";
 import CloseIcon from "../../components/Icon/CloseIcon";
 import { useLocation } from "react-router-dom";
+import MailSentAlert from "../../components/Alert/MailSentAlert/MailSentAlert";
 
 
 function Departments() {
@@ -21,6 +22,9 @@ function Departments() {
   const [showAlertDenied, setShowAlertDenied] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [flagDelete, setFlagDelete] = useState(false);
+  const [isEmailSent, setIsEmailSent] = useState(false)
+
+
   const namedepRef = useRef()
   const descdepRef = useRef()
   const searching = "Find a department";
@@ -124,15 +128,18 @@ function Departments() {
 
   return (
     <>
-    
+
       <div className="grid grid-cols-6 grid-rows-2 m-5 max-h-screen">
         <div className="col-start-1 col-end-7 row-start-1 justify-self-center grid m-3">
           <h1 className="text-3xl font-extrabold text-green-paradiso text-center justify-self-center self-center">
             Department management
           </h1>
         </div>
+        {isEmailSent && <div className="col-start-2 col-end-4 row-start-2 self-center mt-3">
+            <MailSentAlert/>
+          </div>} 
 
-        <div className="col-start-1 col-end-7 row-start-2 justify-self-end grid mr-10 mt-3">
+        <div className="col-start-1 col-end-7 row-start-2 justify-self-end grid mr-10 mt-3 self-center">
           <SubHeaderContent
             onChange={handleSearch}
             onClick={handleCreation}
@@ -226,6 +233,7 @@ function Departments() {
                     setFlagDelete={setFlagDelete}
                     flagDelete={flagDelete}
                     showCreate={showCreate}
+                    setIsEmailSent={setIsEmailSent}
                   />
                 ))
               ) : (
@@ -246,6 +254,7 @@ function Departments() {
                   info={el}
                   setFlagDelete={setFlagDelete}
                   flagDelete={flagDelete}
+                  setIsEmailSent={setIsEmailSent}
                 />
               ))
             ) : (

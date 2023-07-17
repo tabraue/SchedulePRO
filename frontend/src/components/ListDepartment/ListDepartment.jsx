@@ -6,7 +6,6 @@ import ButtonCustom from "../ButtonCustom/ButtonCustom";
 import AlertDelete from "../Alert/AlertDelete/AlertDelete";
 import { deleteDepartment } from "../../services/department.service";
 import CalendarFull from "../CalendarFull/CalendarFull";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   createSchedule,
@@ -18,7 +17,8 @@ import ErrorAlert from "../Alert/ErrorAlert/ErrorAlert";
 import Email from "../Icon/Email";
 import { sendEmail } from "../../services/email.service";
 
-function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
+
+function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmailSent }) {
   const [openmodalstate, setModal] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [openAcordion, setOpenAcordion] = useState(false);
@@ -32,6 +32,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
   const [refresh, setRefresh] = useState(false);
   const [isEvent, setIsEvent] = useState(false);
   const [idFromSchedule, setIdFromSchedule] = useState("");
+
 
   const dateinputRef = useRef();
 
@@ -191,15 +192,19 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
       const emailAddresses = employees.map((emp) => emp.email).join(',');
       const res=  await sendEmail(emailAddresses, shifts);
       if(res){
-        
+        setIsEmailSent(true)
+        const delay = setTimeout(() => {
+          setIsEmailSent(false);
+        }, 3000);
+        return () => clearTimeout(delay);
       }
     }
-    console.log("aquí");
   };
 
 
 
   return (
+
     <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-5 grid-rows-2 justify-center rounded-md bg-white-sand h-full w-9/12 ">
       <button
         onClick={toggleModal}
@@ -464,7 +469,6 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                   shift={"All"}
                   estilo="col-start-1 w-[800px] h-[650px] overflow-hidden mb-8 mt-5"
                   refresh={refresh}
-                  /*                     setRefresh={setRefresh} */
                   eventClick={handleEventClick}
                 />
               </div>
