@@ -199,10 +199,10 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
 const handleSendEmail = async () => {
   const sch = await showScheduleFromDepartment(info._id);
   if (sch) {
+    console.log(sch)
     const shifts = sch.map((el) => el.shift);
     setSchedule(shifts);
     employees.forEach(async (employee) => {
-
       await sendEmail(employee, shifts);
     });
   }

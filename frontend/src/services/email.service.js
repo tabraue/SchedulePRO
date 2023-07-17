@@ -5,7 +5,8 @@ export const sendEmail = async (employee, schedule) => {
     try {
         await api.post(`/email`, {
             employee: employee.email,
-            schedule: schedule.toString()
+            shift: schedule.shift.toString(),
+            date: schedule.date
         },{
             headers: {
                 token: localStorage.getItem('token')

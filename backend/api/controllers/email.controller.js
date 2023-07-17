@@ -9,7 +9,9 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendShift = async (req, res) => {
-    console.log(req.body)
+    const mapeo = req.body.map((el) => {
+        console.log(el)
+    })
 
     try {
         const info = await transporter.sendMail({
