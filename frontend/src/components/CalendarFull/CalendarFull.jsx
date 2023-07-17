@@ -36,6 +36,7 @@ function CalendarFull({ selectedDepartment, shift, estilo, refresh, eventClick }
     }
   };
 
+  console.log(events)
   // DATE=AAAA/MM/DD
 
   const showAll = async () => {
