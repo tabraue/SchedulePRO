@@ -110,7 +110,6 @@ function Employees() {
     setisChecked(false);
   };
 
-  console.log(selectedDepartment)
   const handleCreate = async () => {
     if (validateEmail(email) && selectedDepartment !== "") {
       const res = await createEmployee(
@@ -122,7 +121,7 @@ function Employees() {
         position
       );
       if (res) {
-        setShowAlertSuccess(!showAlertSuccess);
+        setShowAlertSuccess(true);
         setRefresh(!refresh);
         const delay = setTimeout(() => {
           setShowAlertSuccess(false);

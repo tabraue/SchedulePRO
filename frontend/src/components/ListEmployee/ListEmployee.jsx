@@ -103,7 +103,7 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
                           onClick={handleDelete}
                         />
                       )}
-                      {edit ? (
+{/*                       {edit ? (
                         <ButtonCustom text="Confirm" type="confirm" />
                       ) : (
                         <ButtonCustom
@@ -111,7 +111,7 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
                           type="yellow"
                           onClick={handleEdition}
                         />
-                      )}
+                      )} */}
                     </div>
 
                     {openDelete && (
@@ -136,6 +136,9 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
         <div className="col-start-2 col-end-3">
           <p className="text-md text-black h-full">{info.department.name}</p>
         </div>
+{/*         <div className="col-start-3 row-start-1 justify-self-center self-end">
+          <p>hola</p>
+        </div> */}
       </div>
     </>
   );

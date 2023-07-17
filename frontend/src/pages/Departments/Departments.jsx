@@ -52,13 +52,15 @@ function Departments() {
 
   // TAKES DEPARTMENT DESCRIPTOIN
   const handleDescription = (description) => {
+    const des = description.target.value
     if (
-      description.target.value.length === 0 ||
-      description.target.value.length === ""
-    ) {
+      des.length === 0 ||
+      des === "" ||
+      des === undefined
+    ){
       setDescription("");
     } else {
-      setDescription(description);
+      setDescription(des);
     }
   };
 
@@ -84,16 +86,19 @@ function Departments() {
     if (name) {
       const res = await createDepartment(
         name.target.value,
-        description.target.value
+        description
       );
+
       if (res) {
-        setShowAlertSuccess(!showAlertSuccess);
-        setRefresh(!refresh);
+        setShowAlertSuccess(true);
+        cleanInputs();
         const delay = setTimeout(() => {
-          setShowAlertSuccess(!showAlertSuccess);
+          setShowAlertSuccess(false);
         }, 1000);
+        setRefresh(!refresh);
         cleanInputs();
         return () => clearTimeout(delay);
+
       } else {
         setShowAlertDenied(true);
         const delay = setTimeout(() => {
@@ -101,12 +106,6 @@ function Departments() {
         }, 2000);
         return () => clearTimeout(delay);
       }
-    } else {
-      setShowAlertDenied(true);
-      const delay = setTimeout(() => {
-        setShowAlertDenied(false);
-      }, 2000);
-      return () => clearTimeout(delay);
     }
   };
 
@@ -186,7 +185,6 @@ function Departments() {
                         <textarea
                           type="text"
                           id="description"
-                          name="description"
                           className="h-20 bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm focus:ring-blue-calypso focus:border-blue-calypso block w-64 resize-none"
                           onChange={handleDescription}
                         ></textarea>

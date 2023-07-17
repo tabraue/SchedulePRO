@@ -38,7 +38,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
 
   useEffect(() => {
     showEmployees(info._id);
-  }, []);
+  }, [refresh]);
 
   const toggleModal = () => {
     setModal(!openmodalstate);
@@ -277,7 +277,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                         type="cancel"
                         onClick={handleDelete}
                       />
-                      <ButtonCustom text="Confirm" type="confirm" />
+                      {/* <ButtonCustom text="Confirm" type="confirm" /> */}
                     </div>
 
                     {openDelete && (
@@ -407,7 +407,6 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                       selected={startDate}
                       onChange={(date) => setStartDate(date.target.value)}
                     />
-                    {/*  <DatePicker firstDayOfWeek={0} dateFormat={'dd-MM-yyyy'} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
                     <div className="flex self-center mt-5">
                       <ButtonCustom
                         onClick={() => addToSchedule(info._id)}
@@ -421,7 +420,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate }) {
                     shift={"All"}
                     estilo="col-start-1 w-[800px] h-[650px] overflow-hidden mb-8 mt-5"
                     refresh={refresh}
-                    setRefresh={setRefresh}
+/*                     setRefresh={setRefresh} */
                     eventClick={handleEventClick}
                   />
                 </div>
