@@ -208,7 +208,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
     <div className="border-solid border-2 border-yellow-sandy m-1 p-3 grid grid-cols-5 grid-rows-2 justify-center rounded-md bg-white-sand h-full w-9/12 ">
       <button
         onClick={toggleModal}
-        className="col-start-1 row-span-2 justify-self-start ml-5 "
+        className="col-start-1 row-span-2 justify-self-end mr-10 "
       >
         <FolderOpen />
       </button>
