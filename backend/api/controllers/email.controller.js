@@ -1,11 +1,5 @@
 const nodemailer = require("nodemailer");
 
-const htmlContent = `
-  <h1>Mi Correo con HTML</h1>
-  <p>Este es un correo con contenido HTML enviado desde Nodemailer.</p>
-  <p>Puedes agregar cualquier contenido HTML aquí.</p>
-`;
-
 const transporter = nodemailer.createTransport({
   service: "outlook",
   auth: {
@@ -16,7 +10,6 @@ const transporter = nodemailer.createTransport({
 
 const stringlarge = (data) => {
   data.sort((a, b) => new Date(a.Day) - new Date(b.Day));
-
 
   const resultString = data.reduce((acc, obj) => {
     const dateString = new Date(obj.Day).toISOString().slice(0, 10);

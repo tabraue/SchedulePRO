@@ -190,7 +190,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
       );
 
       const emailAddresses = employees.map((emp) => emp.email).join(',');
-      const res=  await sendEmail(emailAddresses, shifts);
+      const res = await sendEmail(emailAddresses, shifts);
       if(res){
         setIsEmailSent(true)
         const delay = setTimeout(() => {

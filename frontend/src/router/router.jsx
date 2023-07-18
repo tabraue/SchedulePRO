@@ -11,7 +11,6 @@ import Employees from "../pages/Employees/Employees";
 import Welcome from "../pages/Welcome/Welcome";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
-import CreateSchedule from "../pages/CreateSchedule/CreateSchedule";
 
 
 const checkLogin = () => {
@@ -47,7 +46,6 @@ export const router = createBrowserRouter([
       { path: "/home/details", element: <Details />, loader: check }, //, loader: check 
       { path: "/home/departments", element: <Departments />, loader: check }, //, loader: check 
       { path: "/home/employees", element: <Employees />, loader: check }, //, loader: check 
-/*       { path: "/home/schedule", element: <CreateSchedule />, loader: check }, //, loader: check  */
     ],
   },
 ]);
