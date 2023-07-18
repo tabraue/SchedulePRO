@@ -67,6 +67,23 @@ export const showScheduleFromEmployee = async(employeeId) => {
 }
 
 
+export const showFormatScheduleFromEmployee = async(employeeId) => {
+    if(employeeId === "" || employeeId === undefined) return false
+    try {
+        const {data} = await api.get(`/schedule/employee/${employeeId}/shift`,{
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+        return data
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+
+
 export const showAllSchedules = async () => {
     try {
         const {data} = await api.get(`/schedule/`,{

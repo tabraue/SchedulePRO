@@ -1,140 +1,168 @@
-const DepartmentModel = require("../models/department.model")
-const EmployeeModel = require("../models/employee.model")
-const ScheduleModel = require("../models/schedule.model")
-
+const DepartmentModel = require("../models/department.model");
+const EmployeeModel = require("../models/employee.model");
+const ScheduleModel = require("../models/schedule.model");
 
 const createSchedule = async (req, res) => {
-    try {
-        // adds itself (by taking the info in res.locals) to body the reference to the company
-        //req.body.company = res.locals.company._id
-        
-        const schedule = await ScheduleModel.create(req.body)
+  try {
+    // adds itself (by taking the info in res.locals) to body the reference to the company
+    //req.body.company = res.locals.company._id
 
-        if(schedule) 
-            return res.status(200).json(schedule)
-        return res.status(400).send('>> Something went wrong creating the schedule') 
-    } catch (error) {
-        console.error(error)
-        return res.status(500).send('>> Error')
-    }
-}
+    const schedule = await ScheduleModel.create(req.body);
 
+    if (schedule) return res.status(200).json(schedule);
+    return res
+      .status(400)
+      .send(">> Something went wrong creating the schedule");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
 const getAllSchedules = async (req, res) => {
-    try {
-        const companyId = res.locals.company._id
-        const departments = await DepartmentModel.find({company: companyId})
+  try {
+    const companyId = res.locals.company._id;
+    const departments = await DepartmentModel.find({ company: companyId });
 
-        if(!departments)
-            return res.status(400).send('>> There are no departments') 
- 
-        const departmentIds = departments.map((department) => department._id)
-        const schedules= await ScheduleModel.find({ department: { $in: departmentIds } }).populate({ path: "employee", select: "-password -department" })
+    if (!departments)
+      return res.status(400).send(">> There are no departments");
 
-        if(schedules)
-            return res.status(200).json(schedules)
+    const departmentIds = departments.map((department) => department._id);
+    const schedules = await ScheduleModel.find({
+      department: { $in: departmentIds },
+    }).populate({ path: "employee", select: "-password -department" });
 
-        return res.status(400).send('>> No schedules yet') 
+    if (schedules) return res.status(200).json(schedules);
 
-    } catch (error) {
-        console.error(error)
-        return res.status(500).send('>> Error')
-    }
-}
-
+    return res.status(400).send(">> No schedules yet");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
 const getOneSchedule = async (req, res) => {
-    try {
-        const companyId = res.locals.company._id
-        // finds the choosen department, checking it is from company logged
-        const department = await DepartmentModel.findOne({_id: req.params.departmentId, company: companyId})
-        if(!department)
-            return res.status(400).send('>> There is no department') 
-        const schedule = await ScheduleModel.find({department: req.params.departmentId}).populate("employee")
-        
-        if(!schedule)
-            return res.status(400).send('>> There is no schedule') 
+  try {
+    const companyId = res.locals.company._id;
+    // finds the choosen department, checking it is from company logged
+    const department = await DepartmentModel.findOne({
+      _id: req.params.departmentId,
+      company: companyId,
+    });
+    if (!department) return res.status(400).send(">> There is no department");
+    const schedule = await ScheduleModel.find({
+      department: req.params.departmentId,
+    }).populate("employee");
 
-        return res.status(200).json(schedule)
-    } catch (error) {
-        console.error(error)
-        return res.status(500).send('>> Error')
-    }
-}
+    if (!schedule) return res.status(400).send(">> There is no schedule");
 
+    return res.status(200).json(schedule);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
-const getOneScheduleByShift = async (req, res) =>{
-    try {
-        const companyId = res.locals.company._id
-        const department = await DepartmentModel.findOne({_id: req.params.departmentId, company: companyId})
-        if(!department)
-            return res.status(400).send('>> There is no department') 
-        const schedule = await ScheduleModel.find({department: req.params.departmentId, shift: req.params.shiftId}).populate("employee")
-        if(!schedule)
-            return res.status(400).send('>> There is no schedule for this department') 
-        return res.status(200).json(schedule)       
-    } catch (error) {
-        console.error(error)
-        return res.status(500).send('>> Error')
-    }
-}
+const getOneScheduleByShift = async (req, res) => {
+  try {
+    const companyId = res.locals.company._id;
+    const department = await DepartmentModel.findOne({
+      _id: req.params.departmentId,
+      company: companyId,
+    });
+    if (!department) return res.status(400).send(">> There is no department");
+    const schedule = await ScheduleModel.find({
+      department: req.params.departmentId,
+      shift: req.params.shiftId,
+    }).populate("employee");
+    if (!schedule)
+      return res
+        .status(400)
+        .send(">> There is no schedule for this department");
+    return res.status(200).json(schedule);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
-
-const getScheduleDatesByEmployee = async (req, res) =>{
-    try {
-        const companyId = res.locals.company._id
-       /*  const department = await DepartmentModel.findOne({_id: req.params.departmentId, company: companyId})
+const getScheduleDatesByEmployee = async (req, res) => {
+  try {
+    const companyId = res.locals.company._id;
+    /*  const department = await DepartmentModel.findOne({_id: req.params.departmentId, company: companyId})
         if(!department)
             return res.status(400).send('>> There is no department')  */
-        const schedule = await ScheduleModel.find({employee: req.params.employeeId})
-        if(!schedule)
-            return res.status(400).send('>> There is no schedule for this employee') 
-        const dates = schedule.map((el) => el.date)
-        return res.status(200).json(dates)       //ONLY DATES TO CHECK (AS VALIDATOR)
-    } catch (error) {
-        console.error(error)
+    const schedule = await ScheduleModel.find({
+      employee: req.params.employeeId,
+    });
+    if (!schedule)
+      return res.status(400).send(">> There is no schedule for this employee");
+    const dates = schedule.map((el) => el.date);
+    return res.status(200).json(dates); //ONLY DATES TO CHECK (AS VALIDATOR)
+  } catch (error) {
+    console.error(error);
 
-        return res.status(500).send('>> Error')
-    }
-}
+    return res.status(500).send(">> Error");
+  }
+};
 
+const getScheduleByEmployee = async (req, res) => {
+  try {
+    const companyId = res.locals.company._id;
+    const schedule = await ScheduleModel.find({employee: req.params.employeeId });
+    if (!schedule)
+      return res.status(400).send(">> There is no schedule for this employee");
+    const sch = schedule.map((el) => {
+      let schformat= {
+        shift: el.shift,
+        day: el.date,
+      };
+      return schformat;
+    });
+    return res.status(200).json(sch);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
 const updateOneSchedule = async (req, res) => {
-    try {
-        const schedule = await ScheduleModel.findOneAndUpdate({_id: req.params.scheduleId}, 
-            req.body, {new: true}).populate("employee")
-        
-        if(!schedule)
-            return res.status(400).send('>> There is no schedule') 
-        return res.status(200).json(schedule)
-    } catch (error) {
-        console.error(error)
-        return res.status(500).send('>> Error')
-    }
-}
+  try {
+    const schedule = await ScheduleModel.findOneAndUpdate(
+      { _id: req.params.scheduleId },
+      req.body,
+      { new: true }
+    ).populate("employee");
 
+    if (!schedule) return res.status(400).send(">> There is no schedule");
+    return res.status(200).json(schedule);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
 const deleteOneSchedule = async (req, res) => {
-    try {
-        const schedule = await ScheduleModel.findOne({_id: req.params.scheduleId})
-        if(!schedule)
-            return res.status(400).send('>> There is no schedule')
-        await ScheduleModel.deleteOne(schedule)
-        return res.status(200).json('>> Schedule deleted')
-    } catch (error) {
-        console.error(error)
-        return res.status(500).send('>> Error')
-    }
-}
-
-
+  try {
+    const schedule = await ScheduleModel.findOne({
+      _id: req.params.scheduleId,
+    });
+    if (!schedule) return res.status(400).send(">> There is no schedule");
+    await ScheduleModel.deleteOne(schedule);
+    return res.status(200).json(">> Schedule deleted");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(">> Error");
+  }
+};
 
 module.exports = {
-    createSchedule,
-    getAllSchedules,
-    getOneSchedule,
-    updateOneSchedule,
-    deleteOneSchedule,
-    getOneScheduleByShift,
-    getScheduleDatesByEmployee
-}
+  createSchedule,
+  getAllSchedules,
+  getOneSchedule,
+  updateOneSchedule,
+  deleteOneSchedule,
+  getOneScheduleByShift,
+  getScheduleDatesByEmployee,
+  getScheduleByEmployee,
+};

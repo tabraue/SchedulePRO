@@ -1,10 +1,11 @@
-import { Line } from "react-chartjs-2";
+//import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -15,36 +16,47 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
   Filler
 );
 
-const lengths = [10, 25, 38, 25, 45, 0];
+export default function LinesChart({ lengthState }) {
+  const lengths = [10, 25, 38, 25, 45, 0];
 
-const shifts = ["Morning", "Evening", "Night", "Day Off", "Holiday", "Medical"];
+  const shifts = [
+    "Morning",
+    "Evening",
+    "Night",
+    "Day Off",
+    "Holiday",
+    "Medical",
+  ];
 
-let midata = {
-  labels: shifts,
-  datasets: [
-    {
-      label: "Shift Graphics",
-      data: lengths,
-      tension: 0.5,
-      fill: true,
-      borderColor: "#357b8d",
-      backgroundColor: "#70b8c2",
-      pointRadius: 5,
-      pointBorderColor: "#f2a154",
-      pointBackgroundColor: "#D68E61",
-    },
-  ],
-};
+  let midata = {
+    labels: shifts,
+    datasets: [
+      {
+        label: "Shift Graphics",
+        data: lengthState,
+        tension: 0.5,
+        fill: true,
+        borderColor: "#357b8d",
+        backgroundColor: "#70b8c2",
+        pointRadius: 5,
+        pointBorderColor: "#f2a154",
+        pointBackgroundColor: "#D68E61",
+      },
+    ],
+  };
 
-let misoptions = {};
-
-export default function LinesChart() {
-  return <Line data={midata} options={misoptions} />;
+  let misoptions = {};
+  return (
+    <>
+      <Bar data={midata} options={misoptions} />
+      {/* <Line data={midata} options={misoptions} /> */}
+    </>
+  );
 }
