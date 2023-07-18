@@ -34,7 +34,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
   const [idFromSchedule, setIdFromSchedule] = useState("");
 
 
-  const dateinputRef = useRef();
+  const dateinputRef = useRef(null);
 
   const showEmployees = async (departmentId) => {
     const data = await showEmployeesByDepartment(departmentId);
@@ -116,7 +116,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
     setSelectedEmployee("");
     setSelectedShift("");
     setStartDate("");
-    dateinputRef.current.value = "";
+    dateinputRef.current.value = '';
   };
 
   const addToSchedule = async () => {
