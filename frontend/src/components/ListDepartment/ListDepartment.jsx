@@ -469,6 +469,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
                   shift={"All"}
                   estilo="col-start-1 w-[800px] h-[650px] overflow-hidden mb-8 mt-5"
                   refresh={refresh}
+                  isEvent={isEvent}
                   eventClick={handleEventClick}
                 />
               </div>

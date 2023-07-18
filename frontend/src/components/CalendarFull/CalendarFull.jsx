@@ -8,7 +8,7 @@ import {
   showScheduleFromDepartmentByShift,
 } from "../../services/schedule.service";
 
-function CalendarFull({ selectedDepartment, shift, estilo, refresh, eventClick }) {
+function CalendarFull({ selectedDepartment, shift, estilo, refresh, eventClick, isEvent }) {
   const [events, setEvents] = useState([]);
 
   const headerToolbar = {
@@ -94,15 +94,13 @@ function CalendarFull({ selectedDepartment, shift, estilo, refresh, eventClick }
 
   const handleClickEvent = (el) =>{
     if(eventClick) eventClick(el)
-
- 
   }
 
   //SCHEDULE FROM ONE DEPARTMENT
 
   useEffect(() => {
     showAll();
-  }, [selectedDepartment, shift, refresh]);
+  }, [selectedDepartment, shift, refresh, isEvent]);
 
   return (
     <div className={estilo}>
