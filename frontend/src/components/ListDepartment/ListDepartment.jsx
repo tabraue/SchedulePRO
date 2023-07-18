@@ -133,13 +133,13 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
         if (res) {
           cleanInputs();
           setRefresh(!refresh);
-        } else {
+        }/*  else {
           setIsErrorAlert(true);
           const delay = setTimeout(() => {
             setIsErrorAlert(false);
           }, 2000);
           return () => clearTimeout(delay);
-        }
+        } */
       } else {
         setIsErrorAlert(true);
         const delay = setTimeout(() => {
@@ -241,7 +241,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
                     </h3>
                     <h3 className="font-normal text-black">
                       {" "}
-                      {employees.map(
+                      {employees.length > 0 && employees.map(
                         (el) => el.is_manager && <p key={el._id}> {el.name} </p>
                       )}
                     </h3>
@@ -286,7 +286,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
                       >
                         <div className="p-5">
                           <ul>
-                            {employees.map((el) => (
+                            {employees.length > 0 && employees.map((el) => (
                               <li
                                 className="text-black list-none font-normal"
                                 key={el._id}
@@ -394,7 +394,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
                     className="flex self-center  mt-4 justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
                   >
                     <option value="">Select Employee</option>
-                    {employees.map((el) => (
+                    {employees.length > 0 && employees.map((el) => (
                       <option
                         key={el._id}
                         value={el._id}
@@ -450,7 +450,7 @@ function ListDepartment({ info, setFlagDelete, flagDelete, showCreate, setIsEmai
 
                   <input
                     type="date"
-                    className="bg-white-sand flex self-center mt-4"
+                    className="bg-white-sand flex self-center mt-4 rounded-md"
                     lang="en"
                     selected={startDate}
                     onChange={(date) => setStartDate(date.target.value)}

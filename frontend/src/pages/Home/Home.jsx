@@ -65,7 +65,7 @@ function Home() {
             className="justify-self-start bg-white-sand border-blue-calypso text-black text-md rounded-md h-10 focus:ring-blue-calypso focus:border-blue-calypso w-72"
           >
             <option value="">Select Department</option>
-            {departments.map((el) => (
+            {departments && departments.map((el) => (
               <option
                 key={el._id}
                 value={el._id}

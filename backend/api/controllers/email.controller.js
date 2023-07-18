@@ -22,9 +22,7 @@ const stringlarge = (data) => {
 
 const sendShift = async (req, res) => {
   const { emails, sh: shifts } = req.body;
-
   const texto = stringlarge(req.body.sh);
-
   const htmlToSend = `
     <!DOCTYPE html>
     <html>
@@ -75,6 +73,7 @@ const sendShift = async (req, res) => {
     </html>`;
 
   try {
+
     const info = await transporter.sendMail({
       from: `"SchedulePRO" <${process.env.SCHEDULEPRO}>`,
       to: req.body.emails,

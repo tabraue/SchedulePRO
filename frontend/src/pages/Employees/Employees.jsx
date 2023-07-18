@@ -250,7 +250,7 @@ function Employees() {
                       className="justify-self-start  bg-white-sand border-blue-calypso text-black text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
                     >
                       <option value="">Select Department</option>
-                      {copyDepartments.map((department) => (
+                      {copyDepartments.length > 0 && copyDepartments.map((department) => (
                         <option
                           key={department._id}
                           value={department._id}
@@ -375,33 +375,3 @@ function Employees() {
 }
 
 export default Employees;
-
-
-/*
-                    <input
-                      type="text"
-                      id="employee-department"
-                      className="bg-white-sand border-blue-calypso text-blue-calypso text-md rounded-sm h-10 focus:ring-blue-calypso focus:border-blue-calypso w-64"
-                      onClick={() => setOpenDepartments(!openDepartments)}
-                      onChange={handleDepartment}
-                      value={selectedDepartment}
-                    />
-                    {openDepartments && copyDepartments.length > 0 && (
-                      <ul className="mt-2 bg-white-sand border border-gray-200 rounded-md shadow-md max-h-40 overflow-y-scroll  absolute z-10">
-                        {copyDepartments.map((department) => (
-                          <li
-                            key={department._id}
-                            className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                            onClick={() => {
-                              setSelectedDepartment(department.name);
-                              setDepartment(department._id);
-                              setOpenDepartments(false);
-                            }}
-                          >
-                            Department: {department.name}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-*/

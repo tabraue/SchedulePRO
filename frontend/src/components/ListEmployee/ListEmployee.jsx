@@ -170,7 +170,7 @@ function ListEmployee({ info, setFlagDelete, flagDelete }) {
 
           <button onClick={toggleModal}>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-paradiso hover:text-yellow-sandy">
-              {info.name}
+            {`${info.name}  ${info.last_name}`}
             </h5>
           </button>
         </div>

@@ -88,14 +88,20 @@ function Details() {
               >
                 <div className="p-5">
                   <ul>
-                    {departments.map((el) => (
-                      <li
-                        className="text-black list-none font-normal"
-                        key={el._id}
-                      >
-                        {el.name}
-                      </li>
-                    ))}
+                    {departments.length === 0 ? (
+                      <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
+                        No departments yet.
+                      </h1>
+                    ) : (
+                      departments.map((el) => (
+                        <li
+                          className="text-black list-none font-normal"
+                          key={el._id}
+                        >
+                          {el.name}
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
               </div>
@@ -114,7 +120,9 @@ function Details() {
                 >
                   <h3 className="text-md font-bold tracking-tight text-green-paradiso">
                     Employees:{" "}
-                    <p className="font-bold text-green-paradiso">{employees.length}</p>
+                    <p className="font-bold text-green-paradiso">
+                      {employees.length}
+                    </p>
                   </h3>
                   <svg
                     data-accordion-icon
@@ -142,14 +150,20 @@ function Details() {
               >
                 <div className="p-5">
                   <ul>
-                    {employees.map((el) => (
-                      <li
-                        className="text-black list-none font-normal"
-                        key={el._id}
-                      >
-                        {el.name} {el.last_name}
-                      </li>
-                    ))}
+                    {employees.length === 0 ? (
+                      <h1 className="text-3xl font-extrabold text-red-chestnut text-center p-5 justify-self-center min-h-[100%]">
+                        No employees yet.
+                      </h1>
+                    ) : (
+                      employees.map((el) => (
+                        <li
+                          className="text-black list-none font-normal"
+                          key={el._id}
+                        >
+                          {el.name} {el.last_name}
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
               </div>
