@@ -24,7 +24,7 @@ ChartJS.register(
 
 const lengths = [10, 25, 38, 25, 45, 0];
 
-const shifts = ["Morning", "Evening", "Night", "Off", "Holiday", "Medical"];
+const shifts = ["Morning", "Evening", "Night", "Day Off", "Holiday", "Medical"];
 
 let midata = {
   labels: shifts,
