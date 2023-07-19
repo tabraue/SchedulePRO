@@ -40,7 +40,7 @@ function Home() {
     Morning: "Morning",
     Evening: "Evening",
     Night: "Night",
-    DayOff: "Day Off",
+    DayOff: "Off",
     Holiday: "Holiday",
     Medical: "Medical",
   };

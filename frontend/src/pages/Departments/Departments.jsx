@@ -135,7 +135,7 @@ function Departments() {
             Department management
           </h1>
         </div>
-        {isEmailSent && <div className="col-start-2 col-end-4 row-start-2 self-center mt-3">
+        { isEmailSent && <div className="col-start-1 col-end-4 row-start-2 self-center text-center animate-bounce mt-3">
             <MailSentAlert/>
           </div>} 
 
