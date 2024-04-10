@@ -1,6 +1,6 @@
 # SchedulePro
 
-![SchedulePro Logo](schedulepro_logo.png)
+![SchedulePro Logo](/frontend/public/images/SchedulePROsm.png)
 
 SchedulePro is a powerful web application designed to streamline and simplify employee scheduling and shift management for businesses. With a focus on visual representation and intuitive features, SchedulePro is the ultimate solution for efficient schedule management.
 
